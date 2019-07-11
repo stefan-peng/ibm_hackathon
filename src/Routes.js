@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch } from "react-router-dom";
-import AppliedRoute from "./components/AppliedRoute";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import Bios from './containers/Bios';
 import Calendar from './containers/Calendar';
 import Home from "./containers/Home";
@@ -9,13 +10,14 @@ import Login from "./containers/Login";
 import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup";
 
+
 export default ({ childProps }) =>
     <Switch>
-        <AppliedRoute path="/" exact component={Home} props={childProps} />
-        <AppliedRoute path="/login" exact component={Login} props={childProps} />
-        <AppliedRoute path="/signup" exact component={Signup} props={childProps} />
-        <AppliedRoute path="/calendar" exact component={Calendar} props={childProps} />
-        <AppliedRoute path="/bios" exact component={Bios} props={childProps} />
-        <AppliedRoute path="/links" exact component={Links} props={childProps} />
-        <AppliedRoute component={NotFound} />
+        <AuthenticatedRoute path="/" exact component={Home} props={childProps} />
+        <UnauthenticatedRoute path="/login" exact component={Login} props={childProps} />
+        <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
+        <AuthenticatedRoute path="/calendar" exact component={Calendar} props={childProps} />
+        <AuthenticatedRoute path="/bios" exact component={Bios} props={childProps} />
+        <AuthenticatedRoute path="/links" exact component={Links} props={childProps} />
+        <AuthenticatedRoute component={NotFound} />
     </Switch>;
