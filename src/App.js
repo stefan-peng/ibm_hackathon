@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       isAuthenticated: false,
+      isAdmin: false,
       isAuthenticating: true
     };
   }
@@ -20,12 +21,12 @@ class App extends Component {
       // await // TODO: get current login status
       // this.userHasAuthenticated(true);
     }
-    catch(e) {
+    catch (e) {
       if (e !== 'No current user') {
         alert(e);
       }
     }
-  
+
     this.setState({ isAuthenticating: false });
   }
 
@@ -33,8 +34,13 @@ class App extends Component {
     this.setState({ isAuthenticated: authenticated });
   }
 
+  userIsAdmin = isAdmin => {
+    this.setState({ isAdmin: isAdmin });
+  }
+
   handleLogout = event => {
     this.userHasAuthenticated(false);
+    this.userIsAdmin(false);
     this.props.history.push("/login");
     // TODO: logout
   }
@@ -42,6 +48,7 @@ class App extends Component {
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
+      isAdmin: this.state.isAdmin,
       userHasAuthenticated: this.userHasAuthenticated
     };
 
@@ -61,7 +68,7 @@ class App extends Component {
                 <NavItem>Calendar</NavItem>
               </LinkContainer>
               <LinkContainer to="/bios">
-                <NavItem>Intern Bios</NavItem>
+                <NavItem>Intern bios</NavItem>
               </LinkContainer>
               <LinkContainer to="/links">
                 <NavItem>Useful links</NavItem>
@@ -78,6 +85,12 @@ class App extends Component {
                     <NavItem>Login</NavItem>
                   </LinkContainer>
                 </Fragment>
+              }
+              {
+                this.state.isAdmin &&
+                <LinkContainer to="/admin">
+                  <NavItem>Admin</NavItem>
+                </LinkContainer>
               }
             </Nav>
           </Navbar.Collapse>
