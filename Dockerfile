@@ -1,17 +1,23 @@
-# base image
-FROM node:12.2.0-alpine
+FROM node:8-stretch
 
-# Install and configure `serve`.
-RUN yarn global add serve
-CMD serve -s build
-EXPOSE 5000
+# Change working directory
+WORKDIR "/app"
 
-# Install all dependencies of the current project.
-COPY package.json package.json
-RUN yarn
+# Update packages and install dependency packages for services
+RUN apt-get update \
+ && apt-get dist-upgrade -y \
+ && apt-get clean \
+ && echo 'Finished installing dependencies'
 
-# Copy all local files into the image.
-COPY . .
+# Install npm production packages
+COPY package.json /app/
+RUN cd /app; npm install --production
 
-# Build for production.
-RUN yarn run build --production
+COPY . /app
+
+ENV NODE_ENV production
+ENV PORT 3000
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
