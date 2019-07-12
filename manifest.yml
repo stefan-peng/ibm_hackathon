@@ -4,7 +4,7 @@ applications:
   domain: null
   host: null
   instances: 1
-  memory: 512M
+  memory: 1024M
   name: hackathon
   routes:
   - route: hackathon.us-east.cf.appdomain.cloud
