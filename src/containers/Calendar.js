@@ -24,8 +24,8 @@ class CalendarPage extends Component {
 
     }
 
-    componentDidMount() {
-
+    saveEvent = newEvents => {
+        this.setState({ events: newEvents });
     }
 
     render() {
@@ -46,6 +46,8 @@ class CalendarPage extends Component {
                             <CreateEvent
                                 show={this.state.modalShow}
                                 onHide={modalClose}
+                                events={this.state.events}
+                                saveEvent={this.saveEvent}
                             />
                         </ButtonToolbar>
                     }

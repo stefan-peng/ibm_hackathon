@@ -9,13 +9,12 @@ class InternCard extends Component {
     render() {
         return (
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
                     <Card.Title>{this.props.userName}</Card.Title>
                     <Card.Text>
-                        <b>Position: </b> <br/>
-                        <b>School: </b> <br/>
-                        <b>Interests and Hobbies: </b>
+                        <b>Position: </b>{this.props.userPos} <br/>
+                        <b>School: </b> {this.props.userSch}<br/>
+                        <b>Interests and Hobbies: </b>{this.props.userInt}
                         
                     </Card.Text>
 

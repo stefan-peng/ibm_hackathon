@@ -39,13 +39,24 @@ class Bios extends Component {
 
     this.setState({ interns: interns })
 
-    let cards = interns.map(intern => {
-      return (
-        <InternCard userName={intern["NAME"]} />
-      )
+    interns.map(intern => {
+      this.generateCard(intern);
     })
 
+  }
+
+  generateCard = user => {
+    var cards = this.state.cards
+    let card = <InternCard userName={user["NAME"]} />
+    cards.push(card);
     this.setState({ cards: cards })
+  }
+
+  addBio = bio => {
+    var newInterns = this.state.interns;
+    newInterns.push(bio);
+    this.generateCard(bio);
+    this.setState({ interns: newInterns })
   }
 
   handleChange = event => {

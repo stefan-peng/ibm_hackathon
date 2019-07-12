@@ -6,8 +6,10 @@ class SelectDate extends Component {
     date: new Date(),
   }
  
-  onChange = date => this.setState({ date })
- 
+  onChange = date => {
+    this.setState({ date })
+    this.props.callback({ date })
+  }
   render() {
     return (
       <div>
