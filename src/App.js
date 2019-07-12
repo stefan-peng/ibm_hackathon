@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import './App.css';
 import Routes from "./Routes";
 

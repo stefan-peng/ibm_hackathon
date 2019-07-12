@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { Button, ButtonToolbar, Container } from 'react-bootstrap';
+import { Button, ButtonToolbar } from 'react-bootstrap';
 import CreateEvent from '../components/CreateEvent';
 
 const localizer = momentLocalizer(moment);
