@@ -53,5 +53,5 @@ chart-path : "chart/hackathon"
 
 # The IBM version of this configuration
 version : "0.0.3"
-ibm-generated-id : "e12a93c7-3152-4b96-bfe5-e352c001e318"
+ibm-generated-id : "8ab91197-7e22-42a1-8f06-7fd5dadb6a63"
 credentials-filepath : "server/localdev-config.json, vcap-local.js, credentials.json, localdev-config.json"

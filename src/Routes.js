@@ -3,6 +3,7 @@ import { Switch } from "react-router-dom";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import Bios from './containers/Bios';
+import EditBio from './containers/EditBio'
 import CalendarPage from './containers/Calendar';
 import Home from "./containers/Home";
 import Links from './containers/Links';
@@ -20,6 +21,7 @@ export default ({ childProps }) =>
         <UnauthenticatedRoute path="/signup" exact component={Signup} props={childProps} />
         <AuthenticatedRoute path="/calendar" exact component={CalendarPage} props={childProps} />
         <AuthenticatedRoute path="/bios" exact component={Bios} props={childProps} />
+        <AuthenticatedRoute path="/bios/edit" exact component={EditBio} props={childProps} />
         <AuthenticatedRoute path="/links" exact component={Links} props={childProps} />
         <AdminRoute path="/admin" exact component={Admin} props={childProps} />
         <AuthenticatedRoute component={NotFound} />

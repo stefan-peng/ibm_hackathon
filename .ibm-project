@@ -1,1 +1,1 @@
-{"build-release-ready":false,"build-debug-ready":false,"devops":false,"deploy-image":"","chart-path":"","ibm-cluster":"","motd-access":"Thu, 11 Jul 2019 11:48:26 EDT","app-id":"53bd9ec4-0e83-4d5f-84af-af052dcb9590","deploy-target":"buildpack"}
+{"build-release-ready":true,"build-debug-ready":false,"devops":false,"deploy-image":"","chart-path":"","ibm-cluster":"","motd-access":"Thu, 11 Jul 2019 11:48:26 EDT","app-id":"99b2188b-42b4-48f2-8e5d-a0b3454be962","deploy-target":"buildpack"}

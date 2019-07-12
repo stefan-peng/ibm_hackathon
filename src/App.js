@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Nav, Navbar, NavItem } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Link, withRouter } from 'react-router-dom';
 import './App.css';
@@ -55,41 +55,39 @@ class App extends Component {
     return (
       !this.state.isAuthenticating &&
       <div className="App container">
-        <Navbar fluid collapseOnSelect>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <Link to="/">Board</Link>
-            </Navbar.Brand>
-            <Navbar.Toggle />
-          </Navbar.Header>
-          <Navbar.Collapse>
-            <Nav pullLeft>
+        <Navbar bg="light" expand="lg">
+          <LinkContainer to="/">
+            <Navbar.Brand>Board</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
               <LinkContainer to="/calendar">
-                <NavItem>Calendar</NavItem>
+                <Nav.Link>Calendar</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/bios">
-                <NavItem>Intern bios</NavItem>
+                <Nav.Link>Intern Bios</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/links">
-                <NavItem>Useful links</NavItem>
+                <Nav.Link>Useful links</Nav.Link>
               </LinkContainer>
             </Nav>
-            <Nav pullRight>
+            <Nav>
               {this.state.isAuthenticated
-                ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+                ? <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
                 : <Fragment>
                   <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
+                    <Nav.Link>Signup</Nav.Link>
                   </LinkContainer>
                   <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
+                    <Nav.Link>Login</Nav.Link>
                   </LinkContainer>
                 </Fragment>
               }
               {
                 this.state.isAdmin &&
                 <LinkContainer to="/admin">
-                  <NavItem>Admin</NavItem>
+                  <Nav.Link>Admin</Nav.Link>
                 </LinkContainer>
               }
             </Nav>

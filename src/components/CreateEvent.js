@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from "react";
-import { InputGroup, FormControl, Button, Modal } from "react-bootstrap"
+import React, { Component } from "react";
+import { InputGroup, FormControl, Button, Modal } from "react-bootstrap";
+import SelectDate from "./SelectDate";
 
 class CreateEvent extends Component {
     render() {
@@ -19,9 +20,25 @@ class CreateEvent extends Component {
                     <h4>Event Title</h4>
                     <div>
                         <InputGroup size="lg">
-                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-sm" />
+                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-md" />
                         </InputGroup>
                     </div>
+                    <h4>Description</h4>
+                    <div>
+                        <InputGroup size="lg">
+                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
+                        </InputGroup>
+                    </div>
+                    <h4>Invites</h4>
+                    <div>
+                        <InputGroup size="lg">
+                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
+                        </InputGroup>
+                    </div>
+                    <h4>Start Date</h4>
+                    <SelectDate />
+                    <h4>End Date</h4>
+                    <SelectDate />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.onHide}>Close</Button>

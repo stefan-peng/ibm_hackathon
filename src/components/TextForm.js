@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ControlLabel, FormControl, FormGroup } from "react-bootstrap";
+import { FormLabel, FormControl, FormGroup } from "react-bootstrap";
 import LoaderButton from "../components/LoaderButton";
 
 class TextForm extends Component {
@@ -16,7 +16,7 @@ class TextForm extends Component {
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <FormGroup controlId={this.props.controlId} bsSize="large">
-                    <ControlLabel>{this.props.controlLabel}</ControlLabel>
+                    <FormLabel>{this.props.FormLabel}</FormLabel>
                     <FormControl
                         autoFocus
                         type="text"

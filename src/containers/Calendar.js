@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import axios from 'axios';
 import CreateEvent from '../components/CreateEvent';
 import { ButtonToolbar } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
@@ -26,6 +25,10 @@ class CalendarPage extends Component {
 
     }
 
+    componentDidMount() {
+
+    }
+
     render() {
         let modalClose = () => this.setState({ modalShow: false });
 
@@ -33,22 +36,26 @@ class CalendarPage extends Component {
             <div>
                 <h1>Calendar</h1>
                 <div>
-                    <ButtonToolbar>
-                        <Button
-                            variant="primary"
-                            onClick={() => this.setState({ modalShow: true })}
-                        >
-                            Create Event
+                    {
+                        this.props.isAdmin &&
+                        <ButtonToolbar>
+                            <Button
+                                variant="primary"
+                                onClick={() => this.setState({ modalShow: true })}
+                            >
+                                Create Event
                         </Button>
-                        <CreateEvent
-                            show={this.state.modalShow}
-                            onHide={modalClose}
-                        />
-                    </ButtonToolbar>
+                            <CreateEvent
+                                show={this.state.modalShow}
+                                onHide={modalClose}
+                            />
+                        </ButtonToolbar>
+                    }
                 </div>
                 <div>
                     <Calendar
                         localizer={localizer}
+                        selectable={true}
                         defaultDate={new Date()}
                         defaultView="month"
                         events={this.state.events}

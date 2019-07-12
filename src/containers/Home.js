@@ -1,5 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Container, Row, Col } from "react";
 import "./Home.css";
+import TopTasks from "./TopTasks"
+import TopLinks from "./TopLinks"
+import TopEvents from "./TopEvents"
 
 export default class Home extends Component {
   render() {
