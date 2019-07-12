@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { InputGroup, FormControl, Button, Modal } from "react-bootstrap";
+import { Button, FormControl, InputGroup, Modal } from "react-bootstrap";
 import SelectDate from "./SelectDate";
 
 class CreateEvent extends Component {
@@ -10,38 +10,28 @@ class CreateEvent extends Component {
                 size="lg"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
+                scrollable="true"
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Create Event
-            </Modal.Title>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Event Title</h4>
-                    <div>
-                        <InputGroup size="lg">
-                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-md" />
-                        </InputGroup>
-                    </div>
+                    <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-md" />
                     <h4>Description</h4>
-                    <div>
-                        <InputGroup size="lg">
-                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
-                        </InputGroup>
-                    </div>
+                    <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
                     <h4>Invites</h4>
-                    <div>
-                        <InputGroup size="lg">
-                            <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
-                        </InputGroup>
-                    </div>
+                    <FormControl aria-label="Large" aria-describedby="inputGroup-sizing-lg" />
                     <h4>Start Date</h4>
                     <SelectDate />
                     <h4>End Date</h4>
                     <SelectDate />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this.props.onHide}>Close</Button>
+                    <Button variant="secondary" onClick={this.props.onHide}>Close</Button>
+                    <Button variant="primary" onClick={this.props.onSubmit}>Create</Button>
                 </Modal.Footer>
             </Modal>
         );

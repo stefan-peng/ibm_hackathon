@@ -5,7 +5,6 @@ export default class Links extends Component {
     return (
       <div className="Links">
         <div className="lander">
-          <h1>Useful links</h1>
         </div>
       </div>
     );

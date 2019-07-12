@@ -11,7 +11,7 @@ class App extends Component {
 
     this.state = {
       isAuthenticated: true,
-      isAdmin: false,
+      isAdmin: true,
       isAuthenticating: true
     };
   }
@@ -73,6 +73,12 @@ class App extends Component {
               </LinkContainer>
             </Nav>
             <Nav>
+              {
+                this.state.isAdmin &&
+                <LinkContainer to="/admin">
+                  <Nav.Link>Admin</Nav.Link>
+                </LinkContainer>
+              }
               {this.state.isAuthenticated
                 ? <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
                 : <Fragment>
@@ -83,12 +89,6 @@ class App extends Component {
                     <Nav.Link>Login</Nav.Link>
                   </LinkContainer>
                 </Fragment>
-              }
-              {
-                this.state.isAdmin &&
-                <LinkContainer to="/admin">
-                  <Nav.Link>Admin</Nav.Link>
-                </LinkContainer>
               }
             </Nav>
           </Navbar.Collapse>
