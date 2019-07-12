@@ -1,10 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Nav, Navbar, NavItem, NavDropdown } from "react-bootstrap";
-import { Button, CardDeck, Form, FormControl } from "react-bootstrap";
-import Carousel from 'react-bootstrap/Carousel';
-
-
+import { Nav } from "react-bootstrap";
 
 export default class Links extends Component {
   render() {

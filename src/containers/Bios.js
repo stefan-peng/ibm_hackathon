@@ -39,9 +39,9 @@ class Bios extends Component {
 
     this.setState({ interns: interns })
 
-    interns.map(intern => {
-      this.generateCard(intern);
-    })
+    interns.map(intern => 
+      this.generateCard(intern)
+    )
 
   }
 
