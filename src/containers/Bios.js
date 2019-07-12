@@ -17,7 +17,7 @@ class Bios extends Component {
   }
 
   componentDidMount() {
-    const API = 'http://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
+    const API = 'https://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
     fetch(API, {
       crossDomain: true,
       method: 'GET',
