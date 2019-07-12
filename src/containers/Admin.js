@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button, Col, Container, Form, FormControl, ListGroup, Row } from "react-bootstrap";
-import InternCard from "../components/InternCard";
+import ModalUser from "../components/ModalUser";
 import "./Bios.css";
 
 class Admin extends Component {
@@ -11,11 +11,13 @@ class Admin extends Component {
       isLoading: false,
       users: [],
       userlinks: [],
+      modalShow: false,
+      currentUser: null,
     }
   }
 
   componentDidMount() {
-    const API = 'http://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
+    const API = 'https://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
     fetch(API, {
       crossDomain: true,
       method: 'GET',
@@ -35,7 +37,7 @@ class Admin extends Component {
 
     let links = users.map(user => {
       return (
-        <ListGroup.Item action onClick={this.showUser(user)}>
+        <ListGroup.Item action onClick={() => this.setState({ modalShow: true, currentUser: user })}>
           {user["NAME"]}
         </ListGroup.Item >
       )
@@ -46,9 +48,12 @@ class Admin extends Component {
 
   showUser(user) {
     return (
-      <InternCard userName={user["NAME"]} />
+      <ModalUser user={user} show={this.state.modalShow}
+        onHide={this.modalClose} />
     )
   }
+
+  modalClose = () => this.setState({ modalShow: false, currentUser: null });
 
   validateForm() {
     return true;
@@ -84,6 +89,8 @@ class Admin extends Component {
                 <Button variant="primary">Search</Button>
               </Form>
               {this.state.userlinks}
+              {this.state.modalShow && <ModalUser user={this.state.currentUser} show={this.state.modalShow}
+                onHide={this.modalClose} />}
             </Col>
             <Col>
               <h1>Manage events</h1>
