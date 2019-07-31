@@ -1,27 +1,38 @@
-import { createLogger } from 'redux-logger'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter as Router } from "react-router-dom"
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
-import rootReducer from './redux/reducers'
+import { BrowserRouter as Router } from "react-router-dom"
+import { applyMiddleware, compose, createStore } from 'redux'
+import { createLogger } from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
 import App from './components/App'
 import './index.css'
+import rootReducer from './redux/reducers'
 import * as serviceWorker from './serviceWorker'
+import { fetchUsers } from './redux/actions';
 
 const loggerMiddleware = createLogger()
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   rootReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeEnhancers(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware
+    )
   )
+)
+
+store.dispatch(fetchUsers()).then(() => console.log(store.getState()))
 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App />
     </Router>
-    </Provider>,
+  </Provider>,
   document.getElementById("root")
 )
 

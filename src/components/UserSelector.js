@@ -4,7 +4,7 @@ import DropdownFilter from './DropdownFilter'
 import { VisibilityFilters } from '../redux/actions'
 
 const UserSelector = () => (
-    <Dropdown>
+    <Dropdown className="mt-2">
         <Dropdown.Toggle variant="success" id="dropdown-basic">
             User Type
         </Dropdown.Toggle>

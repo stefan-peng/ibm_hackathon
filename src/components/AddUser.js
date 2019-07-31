@@ -23,9 +23,9 @@ class AddUser extends React.Component {
 
   handleAddUser = () => {
     let user = {
-      name: this.state.name,
-      email: this.state.email,
-      employeeType_id: Number(this.state.employeeType_id)
+      NAME: this.state.name,
+      EMAIL: this.state.email,
+      EMPLOYEETYPE_ID: Number(this.state.employeeType_id)
     }
     this.props.addUser(user)
     this.setState(initialState)

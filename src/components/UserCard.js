@@ -5,11 +5,11 @@ import { Button, ButtonGroup, Card } from 'react-bootstrap';
 const UserCard = ({ user, onEditClick, onDeleteClick }) => (
   <Card>
     <Card.Header>
-      {user["name"]}
+      {user["NAME"]}
     </Card.Header>
     <Card.Body>
       <Card.Text>
-        {user["email"]}
+        {user["EMAIL"]}
       </Card.Text>
     </Card.Body>
     <Card.Footer>

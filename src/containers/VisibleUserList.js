@@ -5,11 +5,11 @@ import UserList from '../components/UserList'
 const getVisibleUsers = (users, filter) => {
   switch (filter) {
     case 'SHOW_INTERNS':
-      return users.filter(u => u.employeeType_id <= 6)
+      return users.filter(u => u.EMPLOYEETYPE_ID <= 6)
     case 'SHOW_HR':
-      return users.filter(u => u.employeeType_id === 8)
+      return users.filter(u => u.EMPLOYEETYPE_ID === 8)
     case 'SHOW_MANAGERS':
-      return users.filter(u => u.employeeType_id === 7)
+      return users.filter(u => u.EMPLOYEETYPE_ID === 7)
     default:
       return users
   }
@@ -17,7 +17,7 @@ const getVisibleUsers = (users, filter) => {
 
 const mapStateToProps = state => {
   return {
-    users: getVisibleUsers(state.users, state.visibilityFilter)
+    users: getVisibleUsers(state.users["items"], state.visibilityFilter)
   }
 }
 

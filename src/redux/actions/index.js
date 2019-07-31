@@ -1,17 +1,16 @@
 import fetch from 'cross-fetch'
 import { actionTypes } from './actionTypes'
 
-const API = 'https://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
+const API = 'https://flask-back.us-south.cf.appdomain.cloud/api/get_all';
 
 export const requestUsers = filter => ({
   type: actionTypes.REQUEST_USERS,
   filter
 })
 
-export const receiveUsers = (filter, json) => ({
+export const receiveUsers = json => ({
   type: actionTypes.RECEIVE_USERS,
-  filter,
-  users: json.data.children.map(child => child.data),
+  users: json.data,
   receivedAt: Date.now()
 })
 
@@ -22,9 +21,9 @@ export const addUser = user => ({
   user
 })
 
-export const deleteUser = user => ({
+export const deleteUser = id => ({
   type: actionTypes.DELETE_USER,
-  user
+  id
 })
 
 export const editUser = user => ({
@@ -40,12 +39,16 @@ export const invalidateUser = user => ({
 export function fetchUsers(filter) {
   return function (dispatch) {
     dispatch(requestUsers(filter))
-    return fetch(API).then(
+    return fetch(API, {
+      mode: 'cors'
+    }).then(
       response => response.json(),
       error => console.log('Error: ', error)
     )
       .then(json =>
-        dispatch(receiveUsers(filter, json)))
+        dispatch(receiveUsers(json)
+        )
+      )
   }
 }
 

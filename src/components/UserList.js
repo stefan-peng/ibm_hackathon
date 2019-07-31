@@ -11,8 +11,8 @@ const filterUser = (type) => {
 const UserList = ({ users, onEditClick, onDeleteClick }) => (
   <Fragment>
     <CardDeck>
-      {users.map((user, index) => (
-        <UserCard key={index} user={user} onEditClick={() => onEditClick(index)} onDeleteClick={() => onDeleteClick(index)} />
+      {users && users.length > 0 && users.map(user => (
+        <UserCard key={user.id} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
       ))}
     </CardDeck>
     <UserSelector />
@@ -22,9 +22,9 @@ const UserList = ({ users, onEditClick, onDeleteClick }) => (
 UserList.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
-      // id: PropTypes.number,
-      name: PropTypes.string,
-      email: PropTypes.string,
+      ID: PropTypes.number,
+      NAME: PropTypes.string,
+      EMAIL: PropTypes.string,
       // username: PropTypes.string,
       // phone_number: PropTypes.string,
       // employeeType_id: PropTypes.number,

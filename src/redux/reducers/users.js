@@ -1,17 +1,20 @@
 import { actionTypes } from '../actions/actionTypes'
-
-export const users = (state = [{ name: 'test', email: 'test@gmail.com', employeeType_id: 1 }], action) => {
+//items: [{ NAME: 'test', EMAIL: 'test@gmail.com', EMPLOYEETYPE_ID: 1 }]
+export const users = (state = {}, action) => {
   switch (action.type) {
     case actionTypes.ADD_USER:
-      return [
+      return {
         ...state,
-        {
-          id: action.id,
-          user: action.user
-        }
-      ]
+        items: [
+          ...state.items,
+          action.user
+        ]
+      }
     case actionTypes.DELETE_USER:
-      return state.filter(user => user.id !== action.id)
+      return {
+        ...state,
+        items: state.items.filter(user => user.ID !== action.id)
+      }
     case actionTypes.EDIT_USER:
       return state
     case actionTypes.INVALIDATE_USER:
@@ -19,6 +22,13 @@ export const users = (state = [{ name: 'test', email: 'test@gmail.com', employee
         didInvalidate: true
       })
     case actionTypes.REQUEST_USERS:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: false,
+        items: action.users,
+        lastUpdated: action.receivedAt
+      })
+    case actionTypes.RECEIVE_USERS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
