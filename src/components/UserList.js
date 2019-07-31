@@ -1,15 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
 import UserCard from './UserCard'
+import { users } from '../redux/reducers'
 
-const UserList = ({ users, onUserClick }) => (
+const UserList = ({ users }) => (
   <ListGroup>
-      {users.map(user => (
-        <UserCard key={user.id} {...user} onclick={() => onUserClick(user.id)} />
-      ))}
-  </ListGroup>
+      {users && users.length
+        ? users.map(user => (
+          <UserCard key={user.id} {...user} />
+        ))
+          : "No users"
+      }
+        </ListGroup>
 )
+
+const mapStateToProps = state => {
+  const { visibilityFilter } = state
+  const users = users(state, visibilityFilter)
+  return { users }
+}
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(
@@ -26,4 +37,4 @@ UserList.propTypes = {
   onUserClick: PropTypes.func.isRequired
 }
 
-export default UserList
+export default connect(mapStateToProps)(UserList)

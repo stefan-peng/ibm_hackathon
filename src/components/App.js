@@ -62,15 +62,6 @@ class App extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <LinkContainer to="/calendar">
-                <Nav.Link>Calendar</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/bios">
-                <Nav.Link>Intern Bios</Nav.Link>
-              </LinkContainer>
-              <LinkContainer to="/links">
-                <Nav.Link>Useful links</Nav.Link>
-              </LinkContainer>
             </Nav>
             <Nav>
               {

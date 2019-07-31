@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { deleteUser } from '../actions'
+import { deleteUser } from '../redux/actions'
 import UserList from '../components/UserList'
 
 const getVisibleUsers = (users, filter) => {
