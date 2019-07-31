@@ -1,40 +1,38 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { ListGroup } from 'react-bootstrap'
+import { CardDeck } from 'react-bootstrap'
 import UserCard from './UserCard'
-import { users } from '../redux/reducers'
+import UserSelector from './UserSelector'
 
-const UserList = ({ users }) => (
-  <ListGroup>
-      {users && users.length
-        ? users.map(user => (
-          <UserCard key={user.id} {...user} />
-        ))
-          : "No users"
-      }
-        </ListGroup>
-)
-
-const mapStateToProps = state => {
-  const { visibilityFilter } = state
-  const users = users(state, visibilityFilter)
-  return { users }
+const filterUser = (type) => {
+  console.log(type)
 }
+
+const UserList = ({ users, onEditClick, onDeleteClick }) => (
+  <Fragment>
+    <CardDeck>
+      {users.map((user, index) => (
+        <UserCard key={index} user={user} onEditClick={() => onEditClick(index)} onDeleteClick={() => onDeleteClick(index)} />
+      ))}
+    </CardDeck>
+    <UserSelector />
+  </Fragment>
+)
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      // id: PropTypes.number,
       name: PropTypes.string,
       email: PropTypes.string,
-      username: PropTypes.string,
-      phone_number: PropTypes.string,
-      employeeType_id: PropTypes.number,
-      siteLocation_ID: PropTypes.number
+      // username: PropTypes.string,
+      // phone_number: PropTypes.string,
+      // employeeType_id: PropTypes.number,
+      // siteLocation_ID: PropTypes.number
     }).isRequired
-  ).isRequired, 
-  onUserClick: PropTypes.func.isRequired
+  ).isRequired,
+  onEditClick: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps)(UserList)
+export default UserList

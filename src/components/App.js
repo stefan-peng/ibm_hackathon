@@ -1,47 +1,47 @@
-import React, { Component, Fragment } from "react";
-import { Nav, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
-import { withRouter } from 'react-router-dom';
-import './App.css';
-import Routes from "./Routes";
+import React, { Component, Fragment } from "react"
+import { Nav, Navbar } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
+import { withRouter } from 'react-router-dom'
+import './App.css'
+import Routes from "./Routes"
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       isAuthenticated: true,
       isAdmin: true,
       isAuthenticating: true
-    };
+    }
   }
 
   async componentDidMount() {
     try {
       // await // TODO: get current login status
-      // this.userHasAuthenticated(true);
+      // this.userHasAuthenticated(true)
     }
     catch (e) {
       if (e !== 'No current user') {
-        alert(e);
+        alert(e)
       }
     }
 
-    this.setState({ isAuthenticating: false });
+    this.setState({ isAuthenticating: false })
   }
 
   userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
+    this.setState({ isAuthenticated: authenticated })
   }
 
   userIsAdmin = isAdmin => {
-    this.setState({ isAdmin: isAdmin });
+    this.setState({ isAdmin: isAdmin })
   }
 
   handleLogout = event => {
-    this.userHasAuthenticated(false);
-    this.userIsAdmin(false);
-    this.props.history.push("/login");
+    this.userHasAuthenticated(false)
+    this.userIsAdmin(false)
+    this.props.history.push("/login")
     // TODO: logout
   }
 
@@ -50,7 +50,7 @@ class App extends Component {
       isAuthenticated: this.state.isAuthenticated,
       isAdmin: this.state.isAdmin,
       userHasAuthenticated: this.userHasAuthenticated
-    };
+    }
 
     return (
       !this.state.isAuthenticating &&
@@ -66,9 +66,17 @@ class App extends Component {
             <Nav>
               {
                 this.state.isAdmin &&
-                <LinkContainer to="/admin">
-                  <Nav.Link>Admin</Nav.Link>
-                </LinkContainer>
+                <Fragment>
+                  <LinkContainer to="/admin">
+                    <Nav.Link>Admin</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/adduser">
+                    <Nav.Link>Add User</Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to="/allusers">
+                    <Nav.Link>All Users</Nav.Link>
+                  </LinkContainer>
+                </Fragment>
               }
               {this.state.isAuthenticated
                 ? <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
@@ -86,8 +94,8 @@ class App extends Component {
         </Navbar>
         <Routes childProps={childProps} />
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(App);
+export default withRouter(App)

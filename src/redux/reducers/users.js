@@ -1,23 +1,24 @@
-const initialState = {
-  isFetching: false, didInvalidate: false, items: []
-};
+import { actionTypes } from '../actions/actionTypes'
 
-export const users = (state = initialState, action) => {
+export const users = (state = [{ name: 'test', email: 'test@gmail.com', employeeType_id: 1 }], action) => {
   switch (action.type) {
-    case 'ADD_USER':
+    case actionTypes.ADD_USER:
       return [
         ...state,
         {
-          id: action.id
+          id: action.id,
+          user: action.user
         }
       ]
-    case 'DELETE_USER':
+    case actionTypes.DELETE_USER:
       return state.filter(user => user.id !== action.id)
-    case 'INVALIDATE_USER':
+    case actionTypes.EDIT_USER:
+      return state
+    case actionTypes.INVALIDATE_USER:
       return Object.assign({}, state, {
         didInvalidate: true
       })
-    case 'REQUEST_USERS':
+    case actionTypes.REQUEST_USERS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,

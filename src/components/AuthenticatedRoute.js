@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import React from "react"
+import { Route, Redirect } from "react-router-dom"
 
 export default ({ component: C, props: cProps, ...rest }) =>
     <Route
@@ -11,4 +11,4 @@ export default ({ component: C, props: cProps, ...rest }) =>
                     to={`/login?redirect=${props.location.pathname}${props.location
                         .search}`}
                 />}
-    />;
+    />

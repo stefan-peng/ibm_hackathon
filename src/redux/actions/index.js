@@ -1,41 +1,44 @@
 import fetch from 'cross-fetch'
-import { ADD_USER } from '../actionTypes'
+import { actionTypes } from './actionTypes'
 
 const API = 'https://hackathonnodejsbackend.us-south.cf.appdomain.cloud/command';
 
 export const requestUsers = filter => ({
-  type: 'REQUEST_USERS',
+  type: actionTypes.REQUEST_USERS,
   filter
 })
 
 export const receiveUsers = (filter, json) => ({
-  type: 'RECEIVE_USERS',
+  type: actionTypes.RECEIVE_USERS,
   filter,
   users: json.data.children.map(child => child.data),
   receivedAt: Date.now()
 })
 
 let nextUserId = 0
-export const addUser = content => ({
-  type: ADD_USER,
-  payload: {
-    id: nextUserId++,
-    content
-  }
+export const addUser = user => ({
+  type: actionTypes.ADD_USER,
+  id: nextUserId++,
+  user
 })
 
 export const deleteUser = user => ({
-  type: 'DELETE_USER',
+  type: actionTypes.DELETE_USER,
+  user
+})
+
+export const editUser = user => ({
+  type: actionTypes.EDIT_USER,
   user
 })
 
 export const invalidateUser = user => ({
-  type: 'INVALIDATE_USER',
+  type: actionTypes.INVALIDATE_USER,
   user
 })
 
 export function fetchUsers(filter) {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestUsers(filter))
     return fetch(API).then(
       response => response.json(),
@@ -68,7 +71,7 @@ export function fetchUsersIfNeeded(filter) {
 }
 
 export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
+  type: actionTypes.SET_VISIBILITY_FILTER,
   filter
 })
 
