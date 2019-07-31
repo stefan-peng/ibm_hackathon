@@ -17,7 +17,7 @@ export const users = (state = {}, action) => {
       }
     case actionTypes.EDIT_USER:
       return state
-    case actionTypes.INVALIDATE_USER:
+    case actionTypes.INVALIDATE_USERS:
       return Object.assign({}, state, {
         didInvalidate: true
       })

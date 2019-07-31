@@ -31,8 +31,8 @@ export const editUser = user => ({
   user
 })
 
-export const invalidateUser = user => ({
-  type: actionTypes.INVALIDATE_USER,
+export const invalidateUsers = user => ({
+  type: actionTypes.INVALIDATE_USERS,
   user
 })
 
