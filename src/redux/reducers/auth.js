@@ -12,7 +12,7 @@ export const auth = (state = initialState, action) => {
         isAuthenticating: true,
         user: action.user
       };
-    case actionTypes.LOGIN_SUCCESS:
+    case actionTypes.LOGIN:
       return {
         isAdmin: true,
         isAuthenticated: true,
@@ -20,7 +20,7 @@ export const auth = (state = initialState, action) => {
       };
     case actionTypes.LOGIN_FAILURE:
       return {};
-    case actionTypes.LOGOUT_REQUEST:
+    case actionTypes.LOGOUT:
       return { isAuthenticated: false };
     default:
       return state;

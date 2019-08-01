@@ -44,20 +44,16 @@ const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
   </Navbar>
 );
 
-function mapStateToProps(state) {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-    isAdmin: state.auth.isAdmin
-  };
-}
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  isAdmin: state.auth.isAdmin
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: () => {
-      dispatch(logout());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onLogout: () => {
+    dispatch(logout());
+  }
+});
 
 export default withRouter(
   connect(

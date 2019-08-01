@@ -7,8 +7,8 @@ const initialState = {
   name: "",
   email: "",
   phonenumber: "",
-  employeeType_id: Number,
-  siteLocation_id: Number
+  employeeType_id: 0,
+  siteLocation_id: 0
 };
 
 class AddUser extends React.Component {
@@ -57,7 +57,7 @@ class AddUser extends React.Component {
             />
           </FormGroup>
           <FormGroup controlId="phonenumber">
-            <FormLabel>Phonenumber</FormLabel>
+            <FormLabel>Phone number</FormLabel>
             <FormControl
               value={this.state.phonenumber}
               onChange={this.handleChange}
@@ -80,10 +80,7 @@ class AddUser extends React.Component {
               type="number"
             />
           </FormGroup>
-          <Button
-            block
-            onClick={this.handleAddUser}
-          >
+          <Button block onClick={this.handleAddUser}>
             Add user
           </Button>
         </form>

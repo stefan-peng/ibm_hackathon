@@ -1,12 +1,13 @@
-import React from 'react'
-import AddUser from '../components/AddUser'
-import VisibleUserList from '../containers/VisibleUserList'
+import React, { Fragment } from "react";
+import AddUser from "../components/AddUser";
+import VisibleUserList from "../containers/VisibleUserList";
 
 const Admin = () => (
-  <div>
+  <Fragment>
     <AddUser />
+    <br />
     <VisibleUserList />
-  </div>
-)
+  </Fragment>
+);
 
-export default Admin
+export default Admin;

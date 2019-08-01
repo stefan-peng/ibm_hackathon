@@ -4,14 +4,14 @@ import { CardDeck } from 'react-bootstrap'
 import UserCard from './UserCard'
 import UserSelector from './UserSelector'
 
-const UserList = ({ users, onEditClick, onDeleteClick }) => (
+const UserList = ({ users, onEditClick, onDeleteClick, filter }) => (
   <Fragment>
     <CardDeck>
       {users && users.length > 0 && users.map(user => (
-        <UserCard key={user.id} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
+        <UserCard key={user.ID} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
       ))}
     </CardDeck>
-    <UserSelector />
+    <UserSelector selected={filter}/>
   </Fragment>
 )
 
@@ -21,12 +21,12 @@ UserList.propTypes = {
       ID: PropTypes.number,
       NAME: PropTypes.string,
       EMAIL: PropTypes.string,
-      // username: PropTypes.string,
-      // phone_number: PropTypes.string,
-      // employeeType_id: PropTypes.number,
-      // siteLocation_ID: PropTypes.number
+      USERNAME: PropTypes.string,
+      PHONE_NUMBER: PropTypes.string,
+      EMPLOYEETYPE_ID: PropTypes.number,
+      SITELOCATION_ID: PropTypes.number
     }).isRequired
-  ).isRequired,
+  ),
   onEditClick: PropTypes.func.isRequired,
   onDeleteClick: PropTypes.func.isRequired
 }

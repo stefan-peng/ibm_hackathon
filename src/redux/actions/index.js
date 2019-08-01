@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 
 const API = "https://flask-back.us-south.cf.appdomain.cloud";
 
-export function requestLogin(user) {
+export const requestLogin = user => {
   return dispatch => {
     dispatch({
       // TODO: login
@@ -13,22 +13,33 @@ export function requestLogin(user) {
     });
     dispatch(login());
   };
-}
+};
 
 export const login = user => {
   return dispatch => {
     dispatch({
-      type: actionTypes.LOGIN_SUCCESS,
+      type: actionTypes.LOGIN,
       user: user
     });
     dispatch(push("/"));
   };
 };
 
+export const requestLogout = user => {
+  return dispatch => {
+    dispatch({
+      // TODO: logout
+      type: actionTypes.LOGOUT_REQUEST,
+      user: user
+    });
+    dispatch(logout());
+  };
+};
+
 export const logout = () => {
   return dispatch => {
     dispatch({
-      type: actionTypes.LOGOUT_REQUEST
+      type: actionTypes.LOGOUT
     });
     dispatch(push("/login"));
   };
@@ -45,32 +56,37 @@ export const receiveUsers = json => ({
   receivedAt: Date.now()
 });
 
-let nextUserId = 0;
-export const addUser = user => ({
-  type: actionTypes.ADD_USER,
-  id: nextUserId++,
-  user
-});
+export const addUser = user => dispatch =>
+  fetch(API + "/add", {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ data: { user: user } })
+  })
+    .then(response => response.json(), error => console.log("Error: ", error))
+    .then(status =>
+      status === "ok" ? dispatch(fetchUsers) : console.log("Error: ", status)
+    );
 
 export const deleteUser = id => ({
   type: actionTypes.DELETE_USER,
   id
 });
 
-export function removeUser(id) {
-  return function(dispatch) {
-    return fetch(API + "/action/delete=" + id, {
-      method: "DELETE",
-      mode: "cors"
-    })
-      .then(response => response.json(), error => console.log("Error: ", error))
-      .then(status =>
-        status === "ok"
-          ? dispatch(deleteUser(id))
-          : console.log("Error: ", status)
-      );
-  };
-}
+export const requestDeleteUser = id => dispatch =>
+  fetch(API + "/delete=" + id, {
+    method: "DELETE",
+    mode: "cors"
+  })
+    .then(response => response.json(), error => console.log("Error: ", error))
+    .then(status =>
+      status === "ok"
+        ? dispatch(deleteUser(id))
+        : console.log("Error: ", status)
+    );
 
 export const editUser = user => ({
   type: actionTypes.EDIT_USER,
@@ -82,18 +98,18 @@ export const invalidateUsers = user => ({
   user
 });
 
-export function fetchUsers(filter) {
+export const fetchUsers = () => {
   return function(dispatch) {
-    dispatch(requestUsers(filter));
+    dispatch(requestUsers());
     return fetch(API + "/api/get_users", {
       mode: "cors"
     })
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(json => dispatch(receiveUsers(json)));
   };
-}
+};
 
-export function shouldFetchUsers(state, filter) {
+export const shouldFetchUsers = state => {
   const users = state.users;
   if (!users) {
     return true;
@@ -102,17 +118,17 @@ export function shouldFetchUsers(state, filter) {
   } else {
     return users.didInvalidate;
   }
-}
+};
 
-export function fetchUsersIfNeeded(filter) {
+export const fetchUsersIfNeeded = () => {
   return (dispatch, getState) => {
-    if (shouldFetchUsers(getState(), filter)) {
-      return dispatch(fetchUsers(filter));
+    if (shouldFetchUsers(getState())) {
+      return dispatch(fetchUsers());
     } else {
       return Promise.resolve();
     }
   };
-}
+};
 
 export const setVisibilityFilter = filter => ({
   type: actionTypes.SET_VISIBILITY_FILTER,

@@ -1,20 +1,24 @@
-import React from 'react'
-import { Dropdown } from 'react-bootstrap'
-import DropdownFilter from './DropdownFilter'
-import { VisibilityFilters } from '../redux/actions'
+import React from "react";
+import { Dropdown } from "react-bootstrap";
+import DropdownFilter from "./DropdownFilter";
+import { VisibilityFilters } from "../redux/actions";
 
-const UserSelector = () => (
-    <Dropdown className="mt-2">
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-            User Type
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-            <DropdownFilter filter={VisibilityFilters.SHOW_ALL}>All</DropdownFilter>
-            <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS}>Interns</DropdownFilter>
-            <DropdownFilter filter={VisibilityFilters.SHOW_HR}>HR</DropdownFilter>
-            <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS}>Managers</DropdownFilter>
-        </Dropdown.Menu>
-    </Dropdown>
-)
+const UserSelector = ({ selected }) => (
+  <Dropdown className="mt-2">
+    <Dropdown.Toggle variant="success" id="dropdown-basic">
+      {selected}
+    </Dropdown.Toggle>
+    <Dropdown.Menu>
+      <DropdownFilter filter={VisibilityFilters.SHOW_ALL}>All users</DropdownFilter>
+      <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS}>
+        Interns
+      </DropdownFilter>
+      <DropdownFilter filter={VisibilityFilters.SHOW_HR}>HR</DropdownFilter>
+      <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS}>
+        Managers
+      </DropdownFilter>
+    </Dropdown.Menu>
+  </Dropdown>
+);
 
-export default UserSelector
+export default UserSelector;

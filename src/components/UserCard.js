@@ -23,7 +23,7 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => (
 )
 
 UserCard.propTypes = {
-  deleteUser: PropTypes.func.isRequired,
+  onDeleteClick: PropTypes.func.isRequired,
   user: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
