@@ -8,9 +8,10 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => (
       {user["NAME"]}
     </Card.Header>
     <Card.Body>
-      <Card.Text>
-        {user["EMAIL"]}
-      </Card.Text>
+      <ul>
+        <li>{user["EMAIL"]}</li>
+        <li>{user["PHONENUMBER"]}</li>
+      </ul>
     </Card.Body>
     <Card.Footer>
       <ButtonGroup className="float-right">

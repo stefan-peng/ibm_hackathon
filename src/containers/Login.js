@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { FormLabel, FormControl, FormGroup } from "react-bootstrap";
+import { FormControl, FormGroup, FormLabel } from "react-bootstrap";
+import { connect } from 'react-redux';
+import { requestLogin } from '../redux/actions'
 import LoaderButton from "../components/LoaderButton";
 import "./Login.css";
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -30,7 +32,8 @@ export default class Login extends Component {
         this.setState({ isLoading: true });
         try {
             // TODO: authenticate user
-            this.props.userHasAuthenticated(true);
+            // this.props.userHasAuthenticated(true);
+            this.props.requestLogin()
         } catch (e) {
             alert(e.message);
             this.setState({ isLoading: false });
@@ -72,3 +75,19 @@ export default class Login extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    const { isAuthenticated } = state.auth;
+    return { isAuthenticated };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        requestLogin: authenticated => {
+            dispatch(requestLogin(authenticated))
+        }
+    }
+}
+
+const connectedLogin = connect(mapStateToProps, mapDispatchToProps)(Login);
+export { connectedLogin as Login };

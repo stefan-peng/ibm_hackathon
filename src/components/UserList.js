@@ -4,10 +4,6 @@ import { CardDeck } from 'react-bootstrap'
 import UserCard from './UserCard'
 import UserSelector from './UserSelector'
 
-const filterUser = (type) => {
-  console.log(type)
-}
-
 const UserList = ({ users, onEditClick, onDeleteClick }) => (
   <Fragment>
     <CardDeck>

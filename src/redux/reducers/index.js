@@ -1,8 +1,12 @@
-import { combineReducers } from 'redux'
-import { users } from './users'
-import visibilityFilter from './visibilityFilter'
+import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
+import { users } from "./users";
+import { auth } from "./auth";
+import visibilityFilter from "./visibilityFilter";
 
-export default combineReducers({
+export default (history) => combineReducers({
+  router: connectRouter(history),
   users,
-  visibilityFilter
-})
+  visibilityFilter,
+  auth
+});

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { editUser, deleteUser } from '../redux/actions'
+import { editUser, removeUser } from '../redux/actions'
 import UserList from '../components/UserList'
 
 const getVisibleUsers = (users, filter) => {
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(editUser(id))
     },
     onDeleteClick: id => {
-      dispatch(deleteUser(id))
+      dispatch(removeUser(id))
     }
   }
 }

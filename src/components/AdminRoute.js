@@ -1,13 +1,22 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import { Alert } from 'react-bootstrap'
+import React from "react";
+import { connect } from "react-redux";
+import { Redirect, Route, withRouter } from "react-router-dom";
 
-
-export default ({ component: C, props: cProps, ...rest }) =>
+const Authenticated = ({ component: C, isAuthenticated, isAdmin }) => {
+  return (
     <Route
-        {...rest}
-        render={props =>
-            cProps.isAdmin
-                ? <C {...props} {...cProps} />
-                : <Alert>You do not have permission to view this page.</Alert>}
+      render={() =>
+        isAuthenticated && isAdmin ? <C /> : <Redirect to={"/login"} />
+      }
     />
+  );
+};
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isAdmin: state.auth.isAdmin
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(Authenticated));
