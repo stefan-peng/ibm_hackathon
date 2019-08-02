@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-import { CardDeck } from 'react-bootstrap'
+import { Button, CardDeck } from 'react-bootstrap'
 import UserCard from './UserCard'
 import UserSelector from './UserSelector'
 
-const UserList = ({ users, onEditClick, onDeleteClick, filter }) => (
+const UserList = ({ users, onEditClick, onDeleteClick, onRefreshClick, filter }) => (
   <Fragment>
+    <Button className="my-2" onClick={onRefreshClick}>Refresh</Button>
     <CardDeck>
       {users && users.length > 0 && users.map(user => (
         <UserCard key={user.ID} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
@@ -28,7 +29,8 @@ UserList.propTypes = {
     }).isRequired
   ),
   onEditClick: PropTypes.func.isRequired,
-  onDeleteClick: PropTypes.func.isRequired
+  onDeleteClick: PropTypes.func.isRequired,
+  onRefreshClick: PropTypes.func.isRequired
 }
 
 export default UserList

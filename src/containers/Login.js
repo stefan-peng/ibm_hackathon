@@ -33,7 +33,10 @@ class Login extends Component {
     try {
       // TODO: authenticate user
       // this.props.userHasAuthenticated(true);
-      this.props.requestLogin();
+      this.props.requestLogin({
+        email: this.state.email,
+        password: this.state.password
+      });
     } catch (e) {
       alert(e.message);
       this.setState({ isLoading: false });
@@ -82,8 +85,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    requestLogin: authenticated => {
-      dispatch(requestLogin(authenticated));
+    requestLogin: credentials => {
+      dispatch(requestLogin(credentials));
     }
   };
 };

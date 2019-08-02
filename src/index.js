@@ -3,13 +3,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./components/App";
-import configureStore, { history } from "./configureStore";
 import "./index.css";
-import { fetchUsers } from "./redux/actions";
+import { requestFetchUsers } from "./redux/actions";
+import configureStore, { history } from "./redux/configureStore";
 import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore();
-store.dispatch(fetchUsers()).then(() => console.log(store.getState()));
+store.dispatch(requestFetchUsers()).then(() => console.log(store.getState()));
 
 ReactDOM.render(
   <Provider store={store}>

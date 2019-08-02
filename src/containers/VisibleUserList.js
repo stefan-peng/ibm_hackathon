@@ -1,15 +1,20 @@
 import { connect } from "react-redux";
-import { editUser, requestDeleteUser } from "../redux/actions";
 import UserList from "../components/UserList";
+import { EmployeeType_Ids } from "../const";
+import { doEditUser, requestDeleteUser, requestFetchUsers } from "../redux/actions";
 
 const getVisibleUsers = (users, filter) => {
   switch (filter) {
     case "SHOW_INTERNS":
-      return users.filter(u => u.EMPLOYEETYPE_ID <= 6);
+      return users.filter(
+        u =>
+          u.EMPLOYEETYPE_ID !== EmployeeType_Ids.HR &&
+          u.EMPLOYEETYPE_ID !== EmployeeType_Ids.MANAGER
+      );
     case "SHOW_HR":
-      return users.filter(u => u.EMPLOYEETYPE_ID === 8);
+      return users.filter(u => u.EMPLOYEETYPE_ID === EmployeeType_Ids.HR);
     case "SHOW_MANAGERS":
-      return users.filter(u => u.EMPLOYEETYPE_ID === 7);
+      return users.filter(u => u.EMPLOYEETYPE_ID === EmployeeType_Ids.MANAGER);
     default:
       return users;
   }
@@ -22,10 +27,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onEditClick: id => {
-    dispatch(editUser(id));
+    dispatch(doEditUser(id));
   },
   onDeleteClick: id => {
     dispatch(requestDeleteUser(id));
+  },
+  onRefreshClick: () => {
+    dispatch(requestFetchUsers());
   }
 });
 

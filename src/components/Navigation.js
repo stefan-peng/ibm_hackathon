@@ -3,7 +3,7 @@ import { Nav, Navbar } from "react-bootstrap";
 import { connect } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
-import { logout } from "../redux/actions";
+import { requestLogout } from "../redux/actions";
 
 const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
   <Navbar bg="light" expand="lg">
@@ -51,7 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   onLogout: () => {
-    dispatch(logout());
+    dispatch(requestLogout());
   }
 });
 

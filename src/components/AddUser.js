@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { connect } from "react-redux";
-import { addUser } from "../redux/actions";
+import { requestAddUser } from "../redux/actions";
 
 const initialState = {
   name: "",
   email: "",
-  phonenumber: "",
+  phonenumber: 0,
   employeeType_id: 0,
   siteLocation_id: 0
 };
@@ -31,7 +31,7 @@ class AddUser extends React.Component {
       EMPLOYEETYPE_ID: Number(this.state.employeeType_id),
       SITELOCATION_ID: Number(this.state.siteLocation_id)
     };
-    this.props.addUser(user);
+    this.props.requestAddUser(user);
     this.setState(initialState);
   };
 
@@ -61,7 +61,7 @@ class AddUser extends React.Component {
             <FormControl
               value={this.state.phonenumber}
               onChange={this.handleChange}
-              type="tel"
+              type="number"
             />
           </FormGroup>
           <FormGroup controlId="employeeType_id">
@@ -91,5 +91,5 @@ class AddUser extends React.Component {
 
 export default connect(
   null,
-  { addUser }
+  { requestAddUser }
 )(AddUser);

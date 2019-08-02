@@ -1,27 +1,48 @@
 import fetch from "cross-fetch";
 import { actionTypes } from "./actionTypes";
 import { push } from "connected-react-router";
+import { API } from "../../const";
 
-const API = "https://flask-back.us-south.cf.appdomain.cloud";
-
-export const requestLogin = user => {
+export const requestLogin = credentials => {
   return dispatch => {
     dispatch({
-      // TODO: login
-      type: actionTypes.LOGIN_REQUEST,
-      user: user
+      type: actionTypes.REQUEST_LOGIN
     });
-    dispatch(login());
+    fetch(API + "/login", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ data: { credentials: credentials } })
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response.status === "ok"
+          ? dispatch(doLogin(response.token))
+          : dispatch(doLoginFailed(response))
+      );
   };
 };
 
-export const login = user => {
+export const doLogin = user => {
   return dispatch => {
     dispatch({
-      type: actionTypes.LOGIN,
+      type: actionTypes.DO_LOGIN,
       user: user
     });
     dispatch(push("/"));
+  };
+};
+
+export const doLoginFailed = response => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.DO_LOGIN_FAILED,
+      response: response
+    });
+    dispatch(push("/login"));
   };
 };
 
@@ -29,83 +50,93 @@ export const requestLogout = user => {
   return dispatch => {
     dispatch({
       // TODO: logout
-      type: actionTypes.LOGOUT_REQUEST,
+      type: actionTypes.REQUEST_LOGOUT,
       user: user
     });
-    dispatch(logout());
+    dispatch(doLogout());
   };
 };
 
-export const logout = () => {
+export const doLogout = () => {
   return dispatch => {
     dispatch({
-      type: actionTypes.LOGOUT
+      type: actionTypes.DO_LOGOUT
     });
     dispatch(push("/login"));
   };
 };
 
-export const requestUsers = filter => ({
-  type: actionTypes.REQUEST_USERS,
-  filter
-});
-
-export const receiveUsers = json => ({
-  type: actionTypes.RECEIVE_USERS,
+export const doReceiveUsers = json => ({
+  type: actionTypes.DO_RECEIVE_USERS,
   users: json.data,
   receivedAt: Date.now()
 });
 
-export const addUser = user => dispatch =>
-  fetch(API + "/add", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ data: { user: user } })
-  })
-    .then(response => response.json(), error => console.log("Error: ", error))
-    .then(status =>
-      status === "ok" ? dispatch(fetchUsers) : console.log("Error: ", status)
-    );
+export const requestAddUser = user => {
+  return function(dispatch) {
+    dispatch({ type: actionTypes.REQUEST_ADD_USER, user: user });
+    fetch(API + "/add", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ data: { user: user } })
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response.status === "ok"
+          ? dispatch(doAddUser(user))
+          : console.log("Error: ", response)
+      );
+  };
+};
 
-export const deleteUser = id => ({
-  type: actionTypes.DELETE_USER,
+export const doAddUser = user => ({
+  type: actionTypes.DO_ADD_USER,
+  user: user
+});
+
+export const doDeleteUser = id => ({
+  type: actionTypes.DO_DELETE_USER,
   id
 });
 
-export const requestDeleteUser = id => dispatch =>
-  fetch(API + "/delete=" + id, {
-    method: "DELETE",
-    mode: "cors"
-  })
-    .then(response => response.json(), error => console.log("Error: ", error))
-    .then(status =>
-      status === "ok"
-        ? dispatch(deleteUser(id))
-        : console.log("Error: ", status)
-    );
-
-export const editUser = user => ({
-  type: actionTypes.EDIT_USER,
-  user
-});
-
-export const invalidateUsers = user => ({
-  type: actionTypes.INVALIDATE_USERS,
-  user
-});
-
-export const fetchUsers = () => {
+export const requestDeleteUser = id => {
   return function(dispatch) {
-    dispatch(requestUsers());
+    dispatch({ type: actionTypes.REQUEST_DELETE_USER, id: id });
+    fetch(API + "/delete=" + id, {
+      method: "DELETE",
+      mode: "cors"
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response.status === "ok"
+          ? dispatch(doDeleteUser(id))
+          : console.log("Error: ", response)
+      );
+  };
+};
+
+export const doEditUser = user => ({
+  type: actionTypes.DO_EDIT_USER,
+  user
+});
+
+export const doInvalidateUsers = user => ({
+  type: actionTypes.DO_INVALIDATE_USERS,
+  user
+});
+
+export const requestFetchUsers = () => {
+  return function(dispatch) {
+    dispatch({ type: actionTypes.REQUEST_FETCH_USERS });
     return fetch(API + "/api/get_users", {
       mode: "cors"
     })
       .then(response => response.json(), error => console.log("Error: ", error))
-      .then(json => dispatch(receiveUsers(json)));
+      .then(json => dispatch(doReceiveUsers(json)));
   };
 };
 
@@ -123,15 +154,15 @@ export const shouldFetchUsers = state => {
 export const fetchUsersIfNeeded = () => {
   return (dispatch, getState) => {
     if (shouldFetchUsers(getState())) {
-      return dispatch(fetchUsers());
+      return dispatch(requestFetchUsers());
     } else {
       return Promise.resolve();
     }
   };
 };
 
-export const setVisibilityFilter = filter => ({
-  type: actionTypes.SET_VISIBILITY_FILTER,
+export const doSetVisibilityFilter = filter => ({
+  type: actionTypes.DO_SET_VISIBILITY_FILTER,
   filter
 });
 
