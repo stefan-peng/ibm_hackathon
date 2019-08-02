@@ -1,11 +1,12 @@
 applications:
-- buildpack: sdk-for-nodejs
-  command: npm start
+- buildpacks:
+  - sdk-for-nodejs
+  command: npm run build && NODE_ENV=production serve -s build
   domain: null
   host: null
   instances: 1
   memory: 1024M
   name: hackathon
   routes:
-  - route: hackathon.us-east.cf.appdomain.cloud
+  - route: ibm-hackathon.us-east.cf.appdomain.cloud
   timeout: 180
