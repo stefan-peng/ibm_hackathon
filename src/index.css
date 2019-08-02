@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Open Sans", sans-serif;
+  font-family: sans-serif;
   font-size: 16px;
   color: #333;
   -webkit-font-smoothing: antialiased;
@@ -9,6 +9,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: monospace;
 }
