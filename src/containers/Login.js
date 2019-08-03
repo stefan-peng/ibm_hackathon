@@ -31,8 +31,6 @@ class Login extends Component {
 
     this.setState({ isLoading: true });
     try {
-      // TODO: authenticate user
-      // this.props.userHasAuthenticated(true);
       this.props.requestLogin({
         email: this.state.email,
         password: this.state.password

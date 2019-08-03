@@ -72,7 +72,6 @@ export default class Signup extends Component {
         }
     }
 
-    // TODO: determine if email confirmation is required
     renderConfirmationForm() {
         return (
             <form onSubmit={this.handleConfirmationSubmit}>

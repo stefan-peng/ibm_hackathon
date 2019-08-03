@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Navigation";
@@ -12,13 +11,4 @@ const App = () => (
   </div>
 );
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.auth.isAuthenticated,
-    isAdmin: state.auth.isAdmin
-  };
-};
-
-const connectedApp = connect(mapStateToProps)(App);
-
-export default withRouter(connectedApp);
+export default withRouter(App);

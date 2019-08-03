@@ -48,6 +48,7 @@ class AddUser extends React.Component {
               onChange={this.handleChange}
             />
           </FormGroup>
+          // TODO: verify email is valid
           <FormGroup controlId="email">
             <FormLabel>Email</FormLabel>
             <FormControl
@@ -56,6 +57,7 @@ class AddUser extends React.Component {
               type="text"
             />
           </FormGroup>
+          // TODO: verify phone number is valid
           <FormGroup controlId="phonenumber">
             <FormLabel>Phone number</FormLabel>
             <FormControl
@@ -64,16 +66,18 @@ class AddUser extends React.Component {
               type="number"
             />
           </FormGroup>
+          // TODO: use dropdown when adding employeeType_id
           <FormGroup controlId="employeeType_id">
-            <FormLabel>Employee Type ID</FormLabel>
+            <FormLabel>Employee Type</FormLabel>
             <FormControl
               value={this.state.employeeType_id}
               onChange={this.handleChange}
               type="number"
             />
           </FormGroup>
+          // TODO: use dropdown when adding siteLocation_id
           <FormGroup controlId="siteLocation_id">
-            <FormLabel>Site Location ID</FormLabel>
+            <FormLabel>Site Location</FormLabel>
             <FormControl
               value={this.state.siteLocation_id}
               onChange={this.handleChange}

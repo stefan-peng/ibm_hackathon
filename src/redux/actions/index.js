@@ -3,6 +3,73 @@ import { actionTypes } from "./actionTypes";
 import { push } from "connected-react-router";
 import { API } from "../../const";
 
+export const requestInit = () => {
+  return function(dispatch) {
+    // dispatch(requestFetchEmployeeTypes());
+    // dispatch(requestFetchSiteLocations());
+    dispatch(requestFetchUsers());
+  };
+};
+
+export const requestFetchEmployeeTypes = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.REQUEST_FETCH_EMPLOYEETYPES
+    });
+    fetch(API + "/api/get_employeetype", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response
+          ? dispatch(doReceiveEmployeeTypes(response.data))
+          : console.log("Error: ", response)
+      );
+  };
+};
+
+export const doReceiveEmployeeTypes = employeeTypes => dispatch => {
+  dispatch({
+    type: actionTypes.DO_RECEIVE_EMPLOYEETYPES,
+    employeeTypes: employeeTypes
+  });
+};
+
+export const requestFetchSiteLocations = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.REQUEST_FETCH_SITELOCATIONS
+    });
+    fetch(API + "/api/get_sitelocation", {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response
+          ? dispatch(doReceiveSiteLocations(response.data))
+          : console.log("Error: ", response)
+      );
+  };
+};
+
+export const doReceiveSiteLocations = siteLocations => dispatch => {
+  dispatch({
+    type: actionTypes.DO_RECEIVE_SITELOCATIONS,
+    siteLocations: siteLocations
+  });
+};
+
+// TODO: verify login works
 export const requestLogin = credentials => {
   return dispatch => {
     dispatch({
@@ -46,13 +113,25 @@ export const doLoginFailed = response => {
   };
 };
 
-export const requestLogout = user => {
+// TODO: verify logout works
+export const requestLogout = token => {
   return dispatch => {
     dispatch({
-      // TODO: logout
-      type: actionTypes.REQUEST_LOGOUT,
-      user: user
+      type: actionTypes.REQUEST_LOGOUT
     });
+    fetch(API + "/logout", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ data: { token: token } })
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response.status === "ok" ? dispatch(doLogout()) : console.log(response)
+      );
     dispatch(doLogout());
   };
 };
@@ -87,8 +166,9 @@ export const requestAddUser = user => {
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(response =>
         response.status === "ok"
-          ? dispatch(doAddUser(user))
+          ? dispatch(doAddUser(response.data.user))
           : console.log("Error: ", response)
+          // TODO: handle email taken
       );
   };
 };
