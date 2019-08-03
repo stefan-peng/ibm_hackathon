@@ -5,6 +5,17 @@ export const VisibilityFilters = {
   SHOW_MANAGERS: "Managers"
 };
 
+export const AllEmployeeTypes = [
+  "Intern-Technical",
+  "Intern-Procurement",
+  "Intern-EO&S",
+  "Intern-Extreme Blue",
+  "Intern-CIO",
+  "Intern-Orphan",
+  "HR",
+  "Manager"
+];
+
 export const EmployeeTypes = {
   INTERN: [
     "Intern-Technical",

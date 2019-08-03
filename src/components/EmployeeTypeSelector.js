@@ -1,18 +1,17 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { VisibilityFilters } from "../const";
-import DropdownFilter from "./DropdownFilter";
+import { AllEmployeeTypes } from "../const";
+import DropdownItem from "./DropdownItem";
 
-const EmployeeTypeSelector = ({ selected }) => (
+const EmployeeTypeSelector = ({ selected, onClick, type }) => (
   <Dropdown className="mt-2">
     <Dropdown.Toggle variant="success" id="dropdown-basic">
       {selected}
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <DropdownFilter filter={VisibilityFilters.SHOW_ALL} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_HR} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS} />
+      {AllEmployeeTypes.map(type => (
+        <Dropdown.Item onClick={onClick}>{type}</Dropdown.Item>
+      ))}
     </Dropdown.Menu>
   </Dropdown>
 );
