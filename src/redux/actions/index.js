@@ -245,10 +245,3 @@ export const doSetVisibilityFilter = filter => ({
   type: actionTypes.DO_SET_VISIBILITY_FILTER,
   filter
 });
-
-export const VisibilityFilters = {
-  SHOW_ALL: "SHOW_ALL",
-  SHOW_INTERNS: "SHOW_INTERNS",
-  SHOW_HR: "SHOW_HR",
-  SHOW_MANAGERS: "SHOW_MANAGERS"
-};

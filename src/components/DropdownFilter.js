@@ -3,7 +3,8 @@ import { doSetVisibilityFilter } from '../redux/actions'
 import DropdownItem from './DropdownItem'
 
 const mapStateToProps = (state, ownProps) => ({
-  active: ownProps.filter === state.visibilityFilter
+  active: ownProps.filter === state.visibilityFilter,
+  filter: ownProps.filter
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

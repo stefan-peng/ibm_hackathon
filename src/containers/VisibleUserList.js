@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import UserList from "../components/UserList";
-import { EmployeeType_Ids, EmployeeTypes } from "../const";
+import { EmployeeType_Ids, EmployeeTypes, VisibilityFilters } from "../const";
 import {
   doEditUser,
   requestDeleteUser,
@@ -10,11 +10,11 @@ import {
 // TODO: combine employeeType, siteLocation filters
 const getVisibleUsers = (users, filter) => {
   switch (filter) {
-    case "SHOW_INTERNS":
+    case VisibilityFilters.SHOW_INTERNS:
       return users.filter(u => EmployeeTypes.INTERN.includes(u.TYPE));
-    case "SHOW_HR":
+    case VisibilityFilters.SHOW_HR:
       return users.filter(u => u.TYPE === EmployeeTypes.HR);
-    case "SHOW_MANAGERS":
+    case VisibilityFilters.SHOW_MANAGERS:
       return users.filter(u => u.TYPE === EmployeeTypes.MANAGER);
     default:
       return users;

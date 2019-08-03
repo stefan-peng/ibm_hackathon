@@ -1,8 +1,8 @@
 export const VisibilityFilters = {
-  SHOW_ALL: "SHOW_ALL",
-  SHOW_INTERNS: "SHOW_INTERNS",
-  SHOW_HR: "SHOW_HR",
-  SHOW_MANAGERS: "SHOW_MANAGERS"
+  SHOW_ALL: "All users",
+  SHOW_INTERNS: "Interns",
+  SHOW_HR: "HR",
+  SHOW_MANAGERS: "Managers"
 };
 
 export const EmployeeTypes = {

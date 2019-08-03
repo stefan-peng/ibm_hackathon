@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
+import { VisibilityFilters } from "../const";
 import DropdownFilter from "./DropdownFilter";
-import { VisibilityFilters } from "../redux/actions";
 
 const UserSelector = ({ selected }) => (
   <Dropdown className="mt-2">
@@ -9,14 +9,10 @@ const UserSelector = ({ selected }) => (
       {selected}
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <DropdownFilter filter={VisibilityFilters.SHOW_ALL}>All users</DropdownFilter>
-      <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS}>
-        Interns
-      </DropdownFilter>
-      <DropdownFilter filter={VisibilityFilters.SHOW_HR}>HR</DropdownFilter>
-      <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS}>
-        Managers
-      </DropdownFilter>
+      <DropdownFilter filter={VisibilityFilters.SHOW_ALL} />
+      <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS} />
+      <DropdownFilter filter={VisibilityFilters.SHOW_HR} />
+      <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS} />
     </Dropdown.Menu>
   </Dropdown>
 );
