@@ -4,6 +4,8 @@
 	"extensions": [
 		"eamodio.gitlens",
 		"esbenp.prettier-vscode",
-		"dbaeumer.vscode-eslint"
+		"dbaeumer.vscode-eslint",
+		"mgmcdermott.vscode-language-babel",
+		"gruntfuggly.todo-tree"
 	]
 }
