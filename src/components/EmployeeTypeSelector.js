@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import { VisibilityFilters } from "../const";
 import DropdownFilter from "./DropdownFilter";
 
-const UserSelector = ({ selected }) => (
+const EmployeeTypeSelector = ({ selected }) => (
   <Dropdown className="mt-2">
     <Dropdown.Toggle variant="success" id="dropdown-basic">
       {selected}
@@ -17,4 +17,4 @@ const UserSelector = ({ selected }) => (
   </Dropdown>
 );
 
-export default UserSelector;
+export default EmployeeTypeSelector;

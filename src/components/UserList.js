@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Button, CardColumns } from 'react-bootstrap'
 import UserCard from './UserCard'
-import UserSelector from './UserSelector'
+import EmployeeTypeSelector from './EmployeeTypeSelector'
 
 const UserList = ({ users, onEditClick, onDeleteClick, onRefreshClick, filter }) => (
   <Fragment>
@@ -13,7 +13,7 @@ const UserList = ({ users, onEditClick, onDeleteClick, onRefreshClick, filter })
         <UserCard key={user.ID} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
       ))}
     </CardColumns>
-    <UserSelector selected={filter}/>
+    <EmployeeTypeSelector selected={filter}/>
   </Fragment>
 )
 
