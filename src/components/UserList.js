@@ -24,7 +24,7 @@ UserList.propTypes = {
       NAME: PropTypes.string,
       EMAIL: PropTypes.string,
       USERNAME: PropTypes.string,
-      PHONENUMBER: PropTypes.string,
+      PHONENUMBER: PropTypes.number,
       EMPLOYEETYPE_ID: PropTypes.number,
       SITELOCATION_ID: PropTypes.number
     }).isRequired
