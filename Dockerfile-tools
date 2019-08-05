@@ -19,6 +19,7 @@ RUN apt-get install bc
 
 CMD ["/bin/bash"]
 
+RUN groupmod -g 999 node && usermod -u 999 -g 999 node
 
 ARG bx_dev_user=root
 ARG bx_dev_userid=1000
