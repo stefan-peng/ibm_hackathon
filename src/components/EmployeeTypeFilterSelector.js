@@ -1,6 +1,6 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import { VisibilityFilters } from "../const";
+import { EmployeeTypes } from "../const";
 import DropdownFilter from "./DropdownFilter";
 
 const EmployeeTypeFilterSelector = ({ selected }) => (
@@ -9,10 +9,10 @@ const EmployeeTypeFilterSelector = ({ selected }) => (
       {selected}
     </Dropdown.Toggle>
     <Dropdown.Menu>
-      <DropdownFilter filter={VisibilityFilters.SHOW_ALL} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_INTERNS} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_HR} />
-      <DropdownFilter filter={VisibilityFilters.SHOW_MANAGERS} />
+      <DropdownFilter filter={EmployeeTypes.ALL} />
+      <DropdownFilter filter={EmployeeTypes.INTERN} />
+      <DropdownFilter filter={EmployeeTypes.HR} />
+      <DropdownFilter filter={EmployeeTypes.MANAGER} />
     </Dropdown.Menu>
   </Dropdown>
 );
