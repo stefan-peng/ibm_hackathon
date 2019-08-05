@@ -5,8 +5,8 @@ import { API } from "../../const";
 
 export const requestInit = () => {
   return function(dispatch) {
-    // dispatch(requestFetchEmployeeTypes());
-    // dispatch(requestFetchSiteLocations());
+    dispatch(requestFetchEmployeeTypes());
+    dispatch(requestFetchSiteLocations());
     dispatch(requestFetchUsers());
   };
 };
