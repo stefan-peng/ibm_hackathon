@@ -56,17 +56,19 @@ export const requestFetchSiteLocations = () => {
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(response =>
         response
-          ? dispatch(doReceiveSiteLocations(response.data))
+          ? dispatch(doReceiveSiteLocations(response))
           : console.log("Error: ", response)
       );
   };
 };
 
-export const doReceiveSiteLocations = siteLocations => dispatch => {
-  dispatch({
-    type: actionTypes.DO_RECEIVE_SITELOCATIONS,
-    siteLocations: siteLocations
-  });
+export const doReceiveSiteLocations = siteLocations => {
+  return function(dispatch) {
+    dispatch({
+      type: actionTypes.DO_RECEIVE_SITELOCATIONS,
+    siteLocations: siteLocations.data
+    });
+  };
 };
 
 // TODO: verify login works
@@ -164,11 +166,12 @@ export const requestAddUser = user => {
       body: JSON.stringify({ data: { user: user } })
     })
       .then(response => response.json(), error => console.log("Error: ", error))
-      .then(response =>
-        response.status === "ok"
-          ? dispatch(doAddUser(response.data.user))
-          : console.log("Error: ", response)
-          // TODO: handle email taken
+      .then(
+        response =>
+          response.status === "ok"
+            ? dispatch(doAddUser(response.data.user))
+            : console.log("Error: ", response)
+        // TODO: handle email taken
       );
   };
 };
@@ -216,7 +219,7 @@ export const requestFetchUsers = () => {
       mode: "cors"
     })
       .then(response => response.json(), error => console.log("Error: ", error))
-      .then(json => dispatch(doReceiveUsers(json)));
+      .then(response => dispatch(doReceiveUsers(response)));
   };
 };
 

@@ -7,13 +7,13 @@ import EmployeeTypeFilterSelector from './EmployeeTypeFilterSelector'
 const UserList = ({ users, onEditClick, onDeleteClick, onRefreshClick, filter }) => (
   <Fragment>
     <Button className="my-2" onClick={onRefreshClick}>Refresh</Button>
+    <EmployeeTypeFilterSelector className="mb-2" selected={filter}/>
     {/* TODO: search users in user list */}
     <CardColumns>
       {users && users.length > 0 && users.map(user => (
         <UserCard key={user.ID} user={user} onEditClick={() => onEditClick(user.ID)} onDeleteClick={() => onDeleteClick(user.ID)} />
       ))}
     </CardColumns>
-    <EmployeeTypeFilterSelector selected={filter}/>
   </Fragment>
 )
 
@@ -25,7 +25,7 @@ UserList.propTypes = {
       EMAIL: PropTypes.string,
       USERNAME: PropTypes.string,
       PHONENUMBER: PropTypes.number,
-      EMPLOYEETYPE_ID: PropTypes.number,
+      EMPLOYEETYPE_ID: PropTypes.string,
       SITELOCATION_ID: PropTypes.number
     }).isRequired
   ),

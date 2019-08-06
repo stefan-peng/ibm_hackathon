@@ -2,13 +2,14 @@ import React from "react";
 import { Button, FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { connect } from "react-redux";
 import { requestAddUser } from "../redux/actions";
+import TypeSelector from "./TypeSelector";
 
 const initialState = {
   name: "",
   email: "",
   phonenumber: 0,
-  employeeType_id: 0,
-  siteLocation_id: 0
+  employeeType_id: 1,
+  siteLocation_id: 1
 };
 
 class AddUser extends React.Component {
@@ -31,8 +32,17 @@ class AddUser extends React.Component {
       EMPLOYEETYPE_ID: Number(this.state.employeeType_id),
       SITELOCATION_ID: Number(this.state.siteLocation_id)
     };
+    console.log(user);
     this.props.requestAddUser(user);
     this.setState(initialState);
+  };
+
+  setEmployeeType = type => {
+    this.setState({ employeeType_id: type });
+  };
+
+  siteSiteLocation = location => {
+    this.setState({ siteLocation_id: location });
   };
 
   render() {
@@ -66,22 +76,20 @@ class AddUser extends React.Component {
               type="number"
             />
           </FormGroup>
-          {/* TODO: use dropdown when adding employeeType_id */}
           <FormGroup controlId="employeeType_id">
             <FormLabel>Employee Type</FormLabel>
-            <FormControl
-              value={this.state.employeeType_id}
-              onChange={this.handleChange}
-              type="number"
+            <TypeSelector
+              types={this.props.employeeTypes}
+              selected={this.state.employeeType_id}
+              onClick={this.setEmployeeType}
             />
           </FormGroup>
-          {/* TODO: use dropdown when adding siteLocation_id */}
           <FormGroup controlId="siteLocation_id">
             <FormLabel>Site Location</FormLabel>
-            <FormControl
-              value={this.state.siteLocation_id}
-              onChange={this.handleChange}
-              type="number"
+            <TypeSelector
+              types={this.props.siteLocations}
+              selected={this.state.siteLocation_id}
+              onClick={this.siteSiteLocation}
             />
           </FormGroup>
           <Button block onClick={this.handleAddUser}>
@@ -93,7 +101,16 @@ class AddUser extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  employeeTypes: state.employeeTypes.items,
+  siteLocations: state.siteLocations.items
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestAddUser: user => dispatch(requestAddUser(user))
+});
+
 export default connect(
-  null,
-  { requestAddUser }
+  mapStateToProps,
+  mapDispatchToProps
 )(AddUser);

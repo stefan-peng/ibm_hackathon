@@ -9,8 +9,8 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => (
       <ul>
         <li>{user["EMAIL"]}</li>
         <li>{user["PHONENUMBER"]}</li>
-        <li>{user["TYPE"]}</li>
-        <li>{user["SITE"]}</li>
+        <li>{user["EMPLOYEETYPE_ID"]}</li>
+        <li>{user["SITELOCATION_ID"]}</li>
         {/* TODO: link to user bio in user card */}
       </ul>
     </Card.Body>
@@ -27,15 +27,16 @@ const UserCard = ({ user, onEditClick, onDeleteClick }) => (
 
 UserCard.propTypes = {
   onDeleteClick: PropTypes.func.isRequired,
+  onEditClick: PropTypes.func.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
+    ID: PropTypes.number,
+    NAME: PropTypes.string,
+    EMAIL: PropTypes.string,
     //username: PropTypes.string,
-    phone_number: PropTypes.number,
-    employeeType_id: PropTypes.number,
-    siteLocation_ID: PropTypes.number
-  })
+    PHONENUMBER: PropTypes.number,
+    EMPLOYEETYPE_ID: PropTypes.string,
+    SITELOCATION_ID: PropTypes.number
+  }).isRequired
 };
 
 export default UserCard;
