@@ -1,13 +1,6 @@
 import { connect } from "react-redux";
 import UserList from "../components/UserList";
-import { EmployeeTypes } from "../const";
-import {
-  doEditUser,
-  requestDeleteUser,
-  requestFetchUsers,
-  doSetSiteLocationFilter,
-  doSetEmployeeTypeFilter
-} from "../redux/actions";
+import { doEditUser, doSetEmployeeTypeFilter, doSetSiteLocationFilter, requestDeleteUser, requestFetchUsers } from "../redux/actions";
 
 // TODO: combine employeeType, siteLocation filters
 const getVisibleUsers = (users, employeeTypeFilter, siteLocationFilter) =>
@@ -18,22 +11,6 @@ const getVisibleUsers = (users, employeeTypeFilter, siteLocationFilter) =>
           u.SITELOCATION_ID === siteLocationFilter
       )
     : users;
-// switch (filter) {
-//   case EmployeeTypes.INTERN:
-//     return users.filter(u =>
-//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Intern")
-//     );
-//   case EmployeeTypes.HR:
-//     return users.filter(u =>
-//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("HR")
-//     );
-//   case EmployeeTypes.MANAGER:
-//     return users.filter(u =>
-//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Manager")
-//     );
-//   default:
-//     return users;
-// }
 
 const mapStateToProps = state => ({
   users: getVisibleUsers(
