@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, withRouter } from "react-router-dom";
 
-function querystring(name, url = window.location.href) {
+const querystring = (name, url = window.location.href) => {
   name = name.replace(/[[]]/g, "\\$&");
 
   const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)", "i");
@@ -16,7 +16,7 @@ function querystring(name, url = window.location.href) {
   }
 
   return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
+};
 
 const Unauthenticated = ({ component: C, isAuthenticated }) => {
   const redirect = querystring("redirect");
