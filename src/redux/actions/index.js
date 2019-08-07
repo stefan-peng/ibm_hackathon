@@ -66,7 +66,7 @@ export const doReceiveSiteLocations = siteLocations => {
   return function(dispatch) {
     dispatch({
       type: actionTypes.DO_RECEIVE_SITELOCATIONS,
-    siteLocations: siteLocations.data
+      siteLocations: siteLocations.data
     });
   };
 };
@@ -244,7 +244,12 @@ export const fetchUsersIfNeeded = () => {
   };
 };
 
-export const doSetVisibilityFilter = filter => ({
-  type: actionTypes.DO_SET_VISIBILITY_FILTER,
+export const doSetEmployeeTypeFilter = filter => ({
+  type: actionTypes.DO_SET_EMPLOYEETYPE_FILTER,
+  filter
+});
+
+export const doSetSiteLocationFilter = filter => ({
+  type: actionTypes.DO_SET_SITELOCATION_FILTER,
   filter
 });

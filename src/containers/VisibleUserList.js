@@ -4,37 +4,47 @@ import { EmployeeTypes } from "../const";
 import {
   doEditUser,
   requestDeleteUser,
-  requestFetchUsers
+  requestFetchUsers,
+  doSetSiteLocationFilter,
+  doSetEmployeeTypeFilter
 } from "../redux/actions";
 
 // TODO: combine employeeType, siteLocation filters
-const usersByEmployeeType = (users, employeeTypes, filter) => {
-  switch (filter) {
-    case EmployeeTypes.INTERN:
-      return users.filter(u => 
-        employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Intern")
-      );
-    case EmployeeTypes.HR:
-      return users.filter(u =>
-        employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("HR")
-      );
-    case EmployeeTypes.MANAGER:
-      return users.filter(u =>
-        employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Manager")
-      );
-    default:
-      return users;
-  }
-};
+const getVisibleUsers = (users, employeeTypeFilter, siteLocationFilter) =>
+  users
+    ? users.filter(
+        u =>
+          u.EMPLOYEETYPE_ID === employeeTypeFilter &&
+          u.SITELOCATION_ID === siteLocationFilter
+      )
+    : users;
+// switch (filter) {
+//   case EmployeeTypes.INTERN:
+//     return users.filter(u =>
+//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Intern")
+//     );
+//   case EmployeeTypes.HR:
+//     return users.filter(u =>
+//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("HR")
+//     );
+//   case EmployeeTypes.MANAGER:
+//     return users.filter(u =>
+//       employeeTypes[u.EMPLOYEETYPE_ID].DATA.includes("Manager")
+//     );
+//   default:
+//     return users;
+// }
 
 const mapStateToProps = state => ({
-  users: usersByEmployeeType(
+  users: getVisibleUsers(
     state.users.items,
-    state.employeeTypes.items,
-    state.visibilityFilter
+    state.visibilityFilter.employeeTypeFilter,
+    state.visibilityFilter.siteLocationFilter
   ),
   employeeTypes: state.employeeTypes.items,
-  filter: state.visibilityFilter
+  selectedEmployeeType: state.visibilityFilter.employeeTypeFilter,
+  siteLocations: state.siteLocations.items,
+  selectedSiteLocation: state.visibilityFilter.siteLocationFilter
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -46,6 +56,12 @@ const mapDispatchToProps = dispatch => ({
   },
   onRefreshClick: () => {
     dispatch(requestFetchUsers());
+  },
+  setEmployeeTypeFilter: type => {
+    dispatch(doSetEmployeeTypeFilter(type));
+  },
+  setSiteLocationFilter: type => {
+    dispatch(doSetSiteLocationFilter(type));
   }
 });
 

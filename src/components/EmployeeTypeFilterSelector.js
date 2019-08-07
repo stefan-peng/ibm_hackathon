@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { EmployeeTypes } from "../const";
-import DropdownFilter from "./DropdownFilter";
+import DropdownFilter from "./EmployeeTypeDropdownFilter";
 
 const EmployeeTypeFilterSelector = ({ selected }) => (
   <Dropdown className="mt-2">

@@ -1,11 +1,12 @@
 import React from "react";
 import { Dropdown } from "react-bootstrap";
-import DropdownSelector from "./DropdownSelector";
+import { VisibilityFilters } from "../const";
+import DropdownFilter from "./DropdownFilter";
 
-const TypeSelector = ({ types, selected, onClick }) => (
+const SiteLocationFilterSelector = ({ types, selected, onClick }) => (
   types ? <Dropdown className="mt-2">
     <Dropdown.Toggle variant="success" id="dropdown-basic">
-      {Number.isInteger(selected) ? types[selected].DATA : selected}
+      {types[selected].DATA}
     </Dropdown.Toggle>
     <Dropdown.Menu>
       {Object.keys(types).map(i => (
@@ -16,4 +17,4 @@ const TypeSelector = ({ types, selected, onClick }) => (
   : <div>loading...</div>
 );
 
-export default TypeSelector;
+export default SiteLocationFilterSelector;

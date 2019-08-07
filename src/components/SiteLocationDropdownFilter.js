@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { doSetVisibilityFilter } from '../redux/actions'
+import { doSetSiteLocationFilter } from '../redux/actions'
 import DropdownItem from './DropdownItem'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onClick: () => dispatch(doSetVisibilityFilter(ownProps.filter))
+  onClick: () => dispatch(doSetSiteLocationFilter(ownProps.filter))
 })
 
 export default connect(
