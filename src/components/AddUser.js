@@ -7,7 +7,7 @@ import TypeSelector from "./TypeSelector";
 const initialState = {
   name: "",
   email: "",
-  phonenumber: 0,
+  phonenumber: "",
   employeeType_id: 1,
   siteLocation_id: 1
 };
@@ -73,7 +73,8 @@ class AddUser extends React.Component {
             <FormControl
               value={this.state.phonenumber}
               onChange={this.handleChange}
-              type="number"
+              type="tel"
+              pattern="[0-9]{10}"
             />
           </FormGroup>
           <FormGroup controlId="employeeType_id">
