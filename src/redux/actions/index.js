@@ -3,7 +3,7 @@ import { actionTypes } from "./actionTypes";
 import { push } from "connected-react-router";
 import { API } from "../../const";
 
-export const requestInit = () => {
+export const requestFetchAll = () => {
   return function(dispatch) {
     dispatch(requestFetchEmployeeTypes());
     dispatch(requestFetchSiteLocations());

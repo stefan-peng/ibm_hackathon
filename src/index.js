@@ -4,12 +4,12 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import App from "./components/App";
 import "./index.css";
-import { requestInit } from "./redux/actions";
+import { requestFetchAll } from "./redux/actions";
 import configureStore, { history } from "./redux/configureStore";
 import * as serviceWorker from "./serviceWorker";
 
 const store = configureStore();
-store.dispatch(requestInit());
+store.dispatch(requestFetchAll());
 
 ReactDOM.render(
   <Provider store={store}>
