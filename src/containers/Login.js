@@ -1,93 +1,67 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { connect } from "react-redux";
-import { requestLogin } from "../redux/actions";
 import LoaderButton from "../components/LoaderButton";
+import { useFormInput } from "../components/UseFormInput";
+import { requestLogin } from "../redux/actions";
 import "./Login.css";
 
-class Login extends Component {
-  constructor(props) {
-    super(props);
+const Login = ({ requestLogin }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const email = useFormInput("");
+  const password = useFormInput("");
 
-    this.state = {
-      isLoading: false,
-      email: "",
-      password: ""
-    };
-  }
+  const validateForm = () =>
+    email.value.length > 0 && password.value.length > 0;
 
-  validateForm() {
-    return this.state.email.length > 0 && this.state.password.length > 0;
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  };
-
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
 
-    this.setState({ isLoading: true });
+    setIsLoading(true);
     try {
-      this.props.requestLogin({
-        email: this.state.email,
-        password: this.state.password
+      requestLogin({
+        email: email.value,
+        password: password.value
       });
     } catch (e) {
       alert(e.message);
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  render() {
-    return (
-      <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email">
-            <FormLabel>Email</FormLabel>
-            <FormControl
-              autoFocus
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-            />
-          </FormGroup>
-          <FormGroup controlId="password">
-            <FormLabel>Password</FormLabel>
-            <FormControl
-              value={this.state.password}
-              onChange={this.handleChange}
-              type="password"
-            />
-          </FormGroup>
-          <LoaderButton
-            block
-            disabled={!this.validateForm()}
-            type="submit"
-            isLoading={this.state.isLoading}
-            text="Login"
-            loadingText="Logging in…"
-          />
-        </form>
-      </div>
-    );
+  return (
+    <div className="Login">
+      <form onSubmit={handleSubmit}>
+        <FormGroup controlId="email">
+          <FormLabel>Email</FormLabel>
+          <FormControl autoFocus type="email" {...email} />
+        </FormGroup>
+        <FormGroup controlId="password">
+          <FormLabel>Password</FormLabel>
+          <FormControl type="password" {...password} />
+        </FormGroup>
+        <LoaderButton
+          block
+          disabled={!validateForm()}
+          type="submit"
+          isLoading={isLoading}
+          text="Login"
+          loadingText="Logging in…"
+        />
+      </form>
+    </div>
+  );
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth
+});
+
+const mapDispatchToProps = dispatch => ({
+  requestLogin: credentials => {
+    dispatch(requestLogin(credentials));
   }
-}
-
-const mapStateToProps = state => {
-  const { isAuthenticated } = state.auth;
-  return { isAuthenticated };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    requestLogin: credentials => {
-      dispatch(requestLogin(credentials));
-    }
-  };
-};
+});
 
 const connectedLogin = connect(
   mapStateToProps,

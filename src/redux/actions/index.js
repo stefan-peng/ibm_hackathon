@@ -134,7 +134,7 @@ export const requestLogout = token => {
       .then(response =>
         response.status === "ok" ? dispatch(doLogout()) : console.log(response)
       );
-    dispatch(doLogout());
+    // dispatch(doLogout());
   };
 };
 

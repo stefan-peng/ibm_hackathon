@@ -1,126 +1,87 @@
 import React from "react";
-import {
-  Button,
-  FormControl,
-  FormGroup,
-  FormLabel,
-  Modal
-} from "react-bootstrap";
+import { Button, FormControl, FormGroup, FormLabel, Modal } from "react-bootstrap";
 import { connect } from "react-redux";
 import { requestAddUser } from "../redux/actions";
 import TypeSelector from "./TypeSelector";
+import { useFormInput } from "./UseFormInput";
 
-const initialState = {
-  name: "",
-  email: "",
-  phonenumber: "",
-  employeeType_id: 1,
-  siteLocation_id: 1
-};
+const AddUser = ({
+  onHide,
+  show,
+  employeeTypes,
+  siteLocations,
+  requestAddUser
+}) => {
+  const name = useFormInput("");
+  const email = useFormInput("");
+  const phonenumber = useFormInput("");
+  const type = useFormInput(1);
+  const location = useFormInput(1);
 
-class AddUser extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = initialState;
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-  };
-
-  handleAddUser = () => {
+  const handleAddUser = () => {
     let user = {
-      NAME: this.state.name,
-      EMAIL: this.state.email,
-      PHONENUMBER: this.state.phonenumber,
-      EMPLOYEETYPE_ID: Number(this.state.employeeType_id),
-      SITELOCATION_ID: Number(this.state.siteLocation_id)
+      NAME: name.value,
+      EMAIL: email.value,
+      PHONENUMBER: phonenumber.value,
+      EMPLOYEETYPE_ID: Number(type.value),
+      SITELOCATION_ID: Number(location.value)
     };
-    this.props.requestAddUser(user);
-    this.setState(initialState);
+    requestAddUser(user);
+    onHide();
   };
 
-  setEmployeeType = type => {
-    this.setState({ employeeType_id: type });
-  };
+  return (
+    <Modal show={show} onHide={onHide}>
+      <Modal.Header closeButton>
+        <Modal.Title>Add user</Modal.Title>
+      </Modal.Header>
 
-  siteSiteLocation = location => {
-    this.setState({ siteLocation_id: location });
-  };
+      <Modal.Body>
+        <form>
+          <FormGroup controlId="name">
+            <FormLabel>Name</FormLabel>
+            <FormControl autoFocus type="text" {...name} />
+          </FormGroup>
+          {/* TODO: verify email is valid */}
+          <FormGroup controlId="email">
+            <FormLabel>Email</FormLabel>
+            <FormControl type="text" {...email} />
+          </FormGroup>
+          {/* TODO: verify phone number is valid */}
+          <FormGroup controlId="phonenumber">
+            <FormLabel>Phone number</FormLabel>
+            <FormControl type="tel" pattern="[0-9]{10}" {...phonenumber} />
+          </FormGroup>
+          <FormGroup controlId="employeeType_id">
+            <FormLabel>Employee Type</FormLabel>
+            <TypeSelector
+              types={employeeTypes}
+              selected={type.value}
+              onClick={type.onChange}
+            />
+          </FormGroup>
+          <FormGroup controlId="siteLocation_id">
+            <FormLabel>Site Location</FormLabel>
+            <TypeSelector
+              types={siteLocations}
+              selected={location.value}
+              onClick={location.onChange}
+            />
+          </FormGroup>
+        </form>
+      </Modal.Body>
 
-  render() {
-    return (
-      <Modal show={this.props.show} onHide={this.props.onHide}>
-        <Modal.Header closeButton>
-          <Modal.Title>Add user</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <form>
-            <FormGroup controlId="name">
-              <FormLabel>Name</FormLabel>
-              <FormControl
-                autoFocus
-                type="text"
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            {/* TODO: verify email is valid */}
-            <FormGroup controlId="email">
-              <FormLabel>Email</FormLabel>
-              <FormControl
-                value={this.state.email}
-                onChange={this.handleChange}
-                type="text"
-              />
-            </FormGroup>
-            {/* TODO: verify phone number is valid */}
-            <FormGroup controlId="phonenumber">
-              <FormLabel>Phone number</FormLabel>
-              <FormControl
-                value={this.state.phonenumber}
-                onChange={this.handleChange}
-                type="tel"
-                pattern="[0-9]{10}"
-              />
-            </FormGroup>
-            <FormGroup controlId="employeeType_id">
-              <FormLabel>Employee Type</FormLabel>
-              <TypeSelector
-                types={this.props.employeeTypes}
-                selected={this.state.employeeType_id}
-                onClick={this.setEmployeeType}
-              />
-            </FormGroup>
-            <FormGroup controlId="siteLocation_id">
-              <FormLabel>Site Location</FormLabel>
-              <TypeSelector
-                types={this.props.siteLocations}
-                selected={this.state.siteLocation_id}
-                onClick={this.siteSiteLocation}
-              />
-            </FormGroup>
-            {/* <Button block onClick={this.handleAddUser}>
-              Add user
-            </Button> */}
-          </form>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.props.onHide}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={this.handleAddUser}>
-            Save changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-}
+      <Modal.Footer>
+        <Button variant="secondary" onClick={onHide}>
+          Cancel
+        </Button>
+        <Button variant="primary" onClick={handleAddUser}>
+          Save changes
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
+};
 
 const mapStateToProps = state => ({
   employeeTypes: state.employeeTypes.items,
