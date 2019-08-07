@@ -1,14 +1,21 @@
 import { connect } from "react-redux";
 import UserList from "../components/UserList";
-import { doEditUser, doSetEmployeeTypeFilter, doSetSiteLocationFilter, requestDeleteUser, requestFetchUsers } from "../redux/actions";
+import {
+  doEditUser,
+  doSetEmployeeTypeFilter,
+  doSetSiteLocationFilter,
+  requestDeleteUser,
+  requestFetchUsers
+} from "../redux/actions";
 
 // TODO: combine employeeType, siteLocation filters
 const getVisibleUsers = (users, employeeTypeFilter, siteLocationFilter) =>
   users
     ? users.filter(
         u =>
-          employeeTypeFilter === 0 || u.EMPLOYEETYPE_ID === employeeTypeFilter &&
-          siteLocationFilter === 0 || u.SITELOCATION_ID === siteLocationFilter
+          (employeeTypeFilter === 0 ||
+            u.EMPLOYEETYPE_ID === employeeTypeFilter) &&
+          (siteLocationFilter === 0 || u.SITELOCATION_ID === siteLocationFilter)
       )
     : users;
 

@@ -2,15 +2,29 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Card } from "react-bootstrap";
 
-const UserCard = ({ user, onEditClick, onDeleteClick }) => (
+const UserCard = ({
+  user,
+  employeeTypes,
+  siteLocations,
+  onEditClick,
+  onDeleteClick
+}) => (
   <Card>
     <Card.Header>{user["NAME"]}</Card.Header>
     <Card.Body>
       <ul>
         <li>{user["EMAIL"]}</li>
         <li>{user["PHONENUMBER"]}</li>
-        <li>{user["EMPLOYEETYPE_ID"]}</li>
-        <li>{user["SITELOCATION_ID"]}</li>
+        <li>
+          {employeeTypes
+            ? employeeTypes[user["EMPLOYEETYPE_ID"]].DATA
+            : "loading..."}
+        </li>
+        <li>
+          {siteLocations
+            ? siteLocations[user["SITELOCATION_ID"]].DATA
+            : "loading..."}
+        </li>
         {/* TODO: link to user bio in user card */}
       </ul>
     </Card.Body>
@@ -33,8 +47,8 @@ UserCard.propTypes = {
     NAME: PropTypes.string,
     EMAIL: PropTypes.string,
     //username: PropTypes.string,
-    PHONENUMBER: PropTypes.number,
-    EMPLOYEETYPE_ID: PropTypes.string,
+    PHONENUMBER: PropTypes.string,
+    EMPLOYEETYPE_ID: PropTypes.number,
     SITELOCATION_ID: PropTypes.number
   }).isRequired
 };

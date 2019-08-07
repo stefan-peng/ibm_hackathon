@@ -43,6 +43,8 @@ const UserList = ({
             user={user}
             onEditClick={() => onEditClick(user.ID)}
             onDeleteClick={() => onDeleteClick(user.ID)}
+            employeeTypes={employeeTypes}
+            siteLocations={siteLocations}
           />
         ))}
     </CardColumns>
@@ -57,7 +59,7 @@ UserList.propTypes = {
       EMAIL: PropTypes.string,
       USERNAME: PropTypes.string,
       PHONENUMBER: PropTypes.string,
-      EMPLOYEETYPE_ID: PropTypes.string,
+      EMPLOYEETYPE_ID: PropTypes.number,
       SITELOCATION_ID: PropTypes.number
     }).isRequired
   ),
