@@ -23,14 +23,18 @@ export const users = (state = {}, action) => {
         isFetching: false,
         didInvalidate: false,
         items: action.users,
-        lastUpdated: action.receivedAt
       });
-    case actionTypes.DO_RECEIVE_USERS:
+    case actionTypes.DO_FETCH_USERS_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         didInvalidate: false,
         items: action.users,
         lastUpdated: action.receivedAt
+      });
+    case actionTypes.DO_FETCH_USERS_FAIL:
+      return Object.assign({}, state, {
+        isFetching: false,
+        didInvalidate: true
       });
     default:
       return state;

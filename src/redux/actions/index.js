@@ -147,10 +147,14 @@ export const doLogout = () => {
   };
 };
 
-export const doReceiveUsers = json => ({
-  type: actionTypes.DO_RECEIVE_USERS,
+export const doFetchUsersSuccess = json => ({
+  type: actionTypes.DO_FETCH_USERS_SUCCESS,
   users: json.data,
   receivedAt: Date.now()
+});
+
+export const doFetchUsersFail = () => ({
+  type: actionTypes.DO_FETCH_USERS_FAIL
 });
 
 export const requestAddUser = user => {
@@ -219,7 +223,11 @@ export const requestFetchUsers = () => {
       mode: "cors"
     })
       .then(response => response.json(), error => console.log("Error: ", error))
-      .then(response => dispatch(doReceiveUsers(response)));
+      .then(response =>
+        response
+          ? dispatch(doFetchUsersSuccess(response))
+          : dispatch(doFetchUsersFail(response))
+      );
   };
 };
 
