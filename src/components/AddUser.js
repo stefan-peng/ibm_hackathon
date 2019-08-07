@@ -32,7 +32,6 @@ class AddUser extends React.Component {
       EMPLOYEETYPE_ID: Number(this.state.employeeType_id),
       SITELOCATION_ID: Number(this.state.siteLocation_id)
     };
-    console.log(user);
     this.props.requestAddUser(user);
     this.setState(initialState);
   };
