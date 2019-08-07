@@ -4,7 +4,7 @@ import DropdownSelector from "./DropdownSelector";
 
 const TypeSelector = ({ types, selected, onClick }) =>
   types ? (
-    <Dropdown className="mt-2">
+    <Dropdown className="my-2 mr-2">
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         {selected === 0 && "All"}
         {Number.isInteger(selected) && selected > 0 ? types[selected].DATA : ""}

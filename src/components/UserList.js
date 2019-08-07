@@ -1,7 +1,8 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { Button, CardColumns, ButtonToolbar } from "react-bootstrap";
 import UserCard from "./UserCard";
+import ModalAddUser from "./ModalAddUser";
 import TypeSelector from "./TypeSelector";
 
 const UserList = ({
@@ -15,41 +16,51 @@ const UserList = ({
   selectedSiteLocation,
   setEmployeeTypeFilter,
   setSiteLocationFilter
-}) => (
-  <Fragment>
-    <Button className="my-2" onClick={onRefreshClick}>
-      Refresh
-    </Button>
-    <ButtonToolbar>
-      <TypeSelector
-        className="mr-2"
-        types={employeeTypes}
-        selected={selectedEmployeeType}
-        onClick={setEmployeeTypeFilter}
-      />
-      <TypeSelector
-        types={siteLocations}
-        selected={selectedSiteLocation}
-        onClick={setSiteLocationFilter}
-      />
-    </ButtonToolbar>
-    {/* TODO: search users in user list */}
-    <CardColumns>
-      {users &&
-        users.length > 0 &&
-        users.map(user => (
-          <UserCard
-            key={user.ID}
-            user={user}
-            onEditClick={() => onEditClick(user.ID)}
-            onDeleteClick={() => onDeleteClick(user.ID)}
-            employeeTypes={employeeTypes}
-            siteLocations={siteLocations}
-          />
-        ))}
-    </CardColumns>
-  </Fragment>
-);
+}) => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  return (
+    <Fragment>
+      <ButtonToolbar>
+        <Button className="my-2 mr-2" onClick={onRefreshClick}>
+          Refresh
+        </Button>
+        <Button className="my-2 mr-2" onClick={handleShow}>
+          Add user
+        </Button>
+        <TypeSelector
+          types={employeeTypes}
+          selected={selectedEmployeeType}
+          onClick={setEmployeeTypeFilter}
+        />
+        <TypeSelector
+          types={siteLocations}
+          selected={selectedSiteLocation}
+          onClick={setSiteLocationFilter}
+        />
+      </ButtonToolbar>
+      {/* TODO: search users in user list */}
+      <ModalAddUser show={show} onHide={handleClose} />
+      <CardColumns>
+        {users &&
+          users.length > 0 &&
+          users.map(user => (
+            <UserCard
+              key={user.ID}
+              user={user}
+              onEditClick={() => onEditClick(user.ID)}
+              onDeleteClick={() => onDeleteClick(user.ID)}
+              employeeTypes={employeeTypes}
+              siteLocations={siteLocations}
+            />
+          ))}
+      </CardColumns>
+    </Fragment>
+  );
+};
 
 UserList.propTypes = {
   users: PropTypes.arrayOf(

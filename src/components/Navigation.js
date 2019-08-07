@@ -16,12 +16,6 @@ const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
       <Nav>
         {isAdmin && isAuthenticated && (
           <Fragment>
-            <LinkContainer to="/admin">
-              <Nav.Link>Admin</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/adduser">
-              <Nav.Link>Add User</Nav.Link>
-            </LinkContainer>
             <LinkContainer to="/allusers">
               <Nav.Link>All Users</Nav.Link>
             </LinkContainer>
