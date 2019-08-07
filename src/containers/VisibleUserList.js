@@ -7,8 +7,8 @@ const getVisibleUsers = (users, employeeTypeFilter, siteLocationFilter) =>
   users
     ? users.filter(
         u =>
-          u.EMPLOYEETYPE_ID === employeeTypeFilter &&
-          u.SITELOCATION_ID === siteLocationFilter
+          employeeTypeFilter === 0 || u.EMPLOYEETYPE_ID === employeeTypeFilter &&
+          siteLocationFilter === 0 || u.SITELOCATION_ID === siteLocationFilter
       )
     : users;
 

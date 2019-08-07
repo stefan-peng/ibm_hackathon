@@ -1,8 +1,8 @@
 import { actionTypes } from "../actions/actionTypes";
 
 const initialState = {
-  employeeTypeFilter: 1,
-  siteLocationFilter: 1
+  employeeTypeFilter: 0,
+  siteLocationFilter: 0
 };
 
 const visibilityFilter = (state = initialState, action) => {
