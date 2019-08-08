@@ -1,6 +1,6 @@
 import { actionTypes } from "../actions/actionTypes";
 
-export const employeeTypes = (state = {}, action) => {
+export const employeeTypes = (state = {isFetching: false, didInvalidate: true}, action) => {
   switch (action.type) {
     case actionTypes.DO_ADD_EMPLOYEETYPES:
       return {
@@ -20,10 +20,9 @@ export const employeeTypes = (state = {}, action) => {
       });
     case actionTypes.REQUEST_FETCH_EMPLOYEETYPES:
       return Object.assign({}, state, {
-        isFetching: false,
+        isFetching: true,
         didInvalidate: false,
         items: action.employeeTypes,
-        lastUpdated: action.receivedAt
       });
     case actionTypes.DO_RECEIVE_EMPLOYEETYPES:
       return Object.assign({}, state, {

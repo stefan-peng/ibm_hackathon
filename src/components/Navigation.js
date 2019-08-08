@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { withRouter } from "react-router-dom";
 import { requestLogout } from "../redux/actions";
 
-const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
+const Navigation = ({ isAuthenticated, isAdmin, onLogout, cookie }) => (
   <Navbar bg="light" expand="lg">
     <LinkContainer to="/">
       <Navbar.Brand>Board</Navbar.Brand>
@@ -22,7 +22,7 @@ const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
           </Fragment>
         )}
         {isAuthenticated ? (
-          <Nav.Link onClick={onLogout}>Logout</Nav.Link>
+          <Nav.Link onClick={onLogout.bind(this, cookie)}>Logout</Nav.Link>
         ) : (
           <Fragment>
             <LinkContainer to="/signup">
@@ -40,12 +40,13 @@ const Navigation = ({ isAuthenticated, isAdmin, onLogout }) => (
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  isAdmin: state.auth.isAdmin
+  isAdmin: state.auth.isAdmin,
+  cookie: state.auth.cookie
 });
 
 const mapDispatchToProps = dispatch => ({
-  onLogout: () => {
-    dispatch(requestLogout());
+  onLogout: cookie => {
+    dispatch(requestLogout(cookie));
   }
 });
 

@@ -2,8 +2,8 @@ import React from "react";
 import { Dropdown } from "react-bootstrap";
 import DropdownSelector from "./DropdownSelector";
 
-const TypeSelector = ({ types, selected, onClick }) =>
-  types ? (
+const TypeSelector = ({ types, selected, onClick, isFetching }) =>
+  !isFetching && types ? (
     <Dropdown className="my-2 mr-2">
       <Dropdown.Toggle variant="success" id="dropdown-basic">
         {selected === 0 && "All"}

@@ -3,11 +3,13 @@ import React from "react";
 import { Card } from "react-bootstrap";
 
 const UserCard = ({
-  user,
+  employeeTypesFetching,
   employeeTypes,
-  siteLocations,
+  onDeleteClick,
   onEditClick,
-  onDeleteClick
+  siteLocationsFetching,
+  siteLocations,
+  user
 }) => (
   <Card>
     <Card.Header>{user["NAME"]}</Card.Header>
@@ -16,12 +18,12 @@ const UserCard = ({
         <li>{user["EMAIL"]}</li>
         <li>{user["PHONENUMBER"]}</li>
         <li>
-          {employeeTypes
+          {!employeeTypesFetching
             ? employeeTypes[user["EMPLOYEETYPE_ID"]].DATA
             : "loading..."}
         </li>
         <li>
-          {siteLocations
+          {!siteLocationsFetching
             ? siteLocations[user["SITELOCATION_ID"]].DATA
             : "loading..."}
         </li>

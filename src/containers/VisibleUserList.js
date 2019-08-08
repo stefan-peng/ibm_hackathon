@@ -5,7 +5,7 @@ import {
   doSetEmployeeTypeFilter,
   doSetSiteLocationFilter,
   requestDeleteUser,
-  requestFetchUsers
+  requestFetchAll
 } from "../redux/actions";
 
 // TODO: combine employeeType, siteLocation filters
@@ -26,9 +26,12 @@ const mapStateToProps = state => ({
     state.visibilityFilter.siteLocationFilter
   ),
   employeeTypes: state.employeeTypes.items,
+  employeeTypesFetching: state.employeeTypes.isFetching,
   selectedEmployeeType: state.visibilityFilter.employeeTypeFilter,
+  selectedSiteLocation: state.visibilityFilter.siteLocationFilter,
   siteLocations: state.siteLocations.items,
-  selectedSiteLocation: state.visibilityFilter.siteLocationFilter
+  siteLocationsFetching: state.siteLocations.isFetching,
+  usersFetching: state.users.isFetching
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -39,7 +42,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(requestDeleteUser(id));
   },
   onRefreshClick: () => {
-    dispatch(requestFetchUsers());
+    dispatch(requestFetchAll());
   },
   setEmployeeTypeFilter: type => {
     dispatch(doSetEmployeeTypeFilter(type));

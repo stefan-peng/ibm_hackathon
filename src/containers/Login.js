@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import { FormControl, FormGroup, FormLabel } from "react-bootstrap";
 import { connect } from "react-redux";
 import LoaderButton from "../components/LoaderButton";
-import { useFormInput } from "../components/UseFormInput";
 import { requestLogin } from "../redux/actions";
 import "./Login.css";
 
 const Login = ({ requestLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const email = useFormInput("");
-  const password = useFormInput("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
-  const validateForm = () =>
-    email.value.length > 0 && password.value.length > 0;
+  const validateForm = () => email.length > 0 && password.length > 0;
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -20,8 +18,8 @@ const Login = ({ requestLogin }) => {
     setIsLoading(true);
     try {
       requestLogin({
-        email: email.value,
-        password: password.value
+        email: email,
+        password: password
       });
     } catch (e) {
       alert(e.message);
@@ -34,11 +32,20 @@ const Login = ({ requestLogin }) => {
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email">
           <FormLabel>Email</FormLabel>
-          <FormControl autoFocus type="email" {...email} />
+          <FormControl
+            autoFocus
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
         </FormGroup>
         <FormGroup controlId="password">
           <FormLabel>Password</FormLabel>
-          <FormControl type="password" {...password} />
+          <FormControl
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
         </FormGroup>
         <LoaderButton
           block

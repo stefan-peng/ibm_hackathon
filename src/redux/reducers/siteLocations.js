@@ -20,10 +20,9 @@ export const siteLocations = (state = {}, action) => {
       });
     case actionTypes.REQUEST_FETCH_SITELOCATIONS:
       return Object.assign({}, state, {
-        isFetching: false,
+        isFetching: true,
         didInvalidate: false,
         items: action.siteLocations,
-        lastUpdated: action.receivedAt
       });
     case actionTypes.DO_RECEIVE_SITELOCATIONS:
       return Object.assign({}, state, {

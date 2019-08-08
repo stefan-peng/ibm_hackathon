@@ -20,9 +20,9 @@ export const users = (state = {}, action) => {
       });
     case actionTypes.REQUEST_FETCH_USERS:
       return Object.assign({}, state, {
-        isFetching: false,
+        isFetching: true,
         didInvalidate: false,
-        items: action.users,
+        items: action.users
       });
     case actionTypes.DO_FETCH_USERS_SUCCESS:
       return Object.assign({}, state, {
@@ -36,6 +36,13 @@ export const users = (state = {}, action) => {
         isFetching: false,
         didInvalidate: true
       });
+    case actionTypes.REQUEST_FETCH_BIO:
+      return state;
+    case actionTypes.DO_FETCH_BIO_SUCCESS:
+      return Object.assign({}, state, {
+        currentBio: action.bio
+      });
+    case actionTypes.DO_FETCH_BIO_FAIL:
     default:
       return state;
   }

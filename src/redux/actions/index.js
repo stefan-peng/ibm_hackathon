@@ -89,18 +89,19 @@ export const requestLogin = credentials => {
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(response =>
         response.status === "ok"
-          ? dispatch(doLogin(response.token))
+          ? dispatch(doLogin(response.cookie))
           : dispatch(doLoginFailed(response))
       );
   };
 };
 
-export const doLogin = user => {
+export const doLogin = cookie => {
   return dispatch => {
     dispatch({
       type: actionTypes.DO_LOGIN,
-      user: user
+      cookie: cookie
     });
+    dispatch(requestFetchAll());
     dispatch(push("/"));
   };
 };
@@ -116,7 +117,7 @@ export const doLoginFailed = response => {
 };
 
 // TODO: verify logout works
-export const requestLogout = token => {
+export const requestLogout = cookie => {
   return dispatch => {
     dispatch({
       type: actionTypes.REQUEST_LOGOUT
@@ -128,13 +129,13 @@ export const requestLogout = token => {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ data: { token: token } })
+      body: JSON.stringify({ data: { cookie: cookie } })
     })
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(response =>
         response.status === "ok" ? dispatch(doLogout()) : console.log(response)
       );
-    // dispatch(doLogout());
+    dispatch(doLogout());
   };
 };
 
@@ -249,6 +250,37 @@ export const fetchUsersIfNeeded = () => {
     } else {
       return Promise.resolve();
     }
+  };
+};
+
+export const requestFetchBio = id => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.REQUEST_FETCH_BIO
+    });
+    fetch(API + "/api/get_bio=" + id, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json(), error => console.log("Error: ", error))
+      .then(response =>
+        response
+          ? dispatch(doReceiveBio(response.data))
+          : console.log("Error: ", response)
+      );
+  };
+};
+
+export const doReceiveBio = bio => {
+  return function(dispatch) {
+    dispatch({
+      type: actionTypes.DO_RECEIVE_BIO,
+      bio: bio
+    });
   };
 };
 

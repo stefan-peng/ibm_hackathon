@@ -6,20 +6,38 @@ import ModalAddUser from "./ModalAddUser";
 import TypeSelector from "./TypeSelector";
 
 const UserList = ({
-  users,
-  onEditClick,
-  onDeleteClick,
-  onRefreshClick,
   employeeTypes,
+  employeeTypesFetching,
+  onDeleteClick,
+  onEditClick,
+  onRefreshClick,
   selectedEmployeeType,
-  siteLocations,
   selectedSiteLocation,
   setEmployeeTypeFilter,
-  setSiteLocationFilter
+  setSiteLocationFilter,
+  siteLocations,
+  siteLocationsFetching,
+  users,
+  usersFetching
 }) => {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const newUser = {
+    NAME: "",
+    EMAIL: "",
+    PHONENUMBER: "",
+    EMPLOYEETYPE_ID: 1,
+    SITELOCATION_ID: 1
+  };
+
+  const [user, setUser] = useState(newUser);
+  const [isEdit, setIsEdit] = useState(false);
+
+  const handleClose = () => {
+    setUser(newUser);
+    setIsEdit(false);
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   return (
@@ -35,26 +53,39 @@ const UserList = ({
           types={employeeTypes}
           selected={selectedEmployeeType}
           onClick={setEmployeeTypeFilter}
+          isFetching={employeeTypesFetching}
         />
         <TypeSelector
           types={siteLocations}
           selected={selectedSiteLocation}
           onClick={setSiteLocationFilter}
+          isFetching={siteLocationsFetching}
         />
       </ButtonToolbar>
       {/* TODO: search users in user list */}
-      <ModalAddUser show={show} onHide={handleClose} />
+      <ModalAddUser
+        show={show}
+        onHide={handleClose}
+        user={user}
+        isEdit={isEdit}
+      />
       <CardColumns>
-        {users &&
+        {!usersFetching &&
           users.length > 0 &&
-          users.map(user => (
+          users.map(u => (
             <UserCard
-              key={user.ID}
-              user={user}
-              onEditClick={() => onEditClick(user.ID)}
-              onDeleteClick={() => onDeleteClick(user.ID)}
+              key={u.ID}
+              user={u}
+              onEditClick={() => {
+                setUser(u);
+                setIsEdit(true);
+                handleShow();
+              }}
+              onDeleteClick={() => onDeleteClick(u.ID)}
               employeeTypes={employeeTypes}
+              employeeTypesFetching={employeeTypesFetching}
               siteLocations={siteLocations}
+              siteLocationsFetching={siteLocationsFetching}
             />
           ))}
       </CardColumns>
