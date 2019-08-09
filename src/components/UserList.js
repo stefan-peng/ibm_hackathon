@@ -9,7 +9,7 @@ const UserList = ({
   employeeTypes,
   employeeTypesFetching,
   onDeleteClick,
-  onEditClick,
+  notAdmin,
   onRefreshClick,
   selectedEmployeeType,
   selectedSiteLocation,
@@ -31,11 +31,9 @@ const UserList = ({
   };
 
   const [user, setUser] = useState(newUser);
-  const [isEdit, setIsEdit] = useState(false);
 
   const handleClose = () => {
     setUser(newUser);
-    setIsEdit(false);
     setShow(false);
   };
   const handleShow = () => setShow(true);
@@ -46,9 +44,9 @@ const UserList = ({
         <Button className="my-2 mr-2" onClick={onRefreshClick}>
           Refresh
         </Button>
-        <Button className="my-2 mr-2" onClick={handleShow}>
+        {!notAdmin && <Button className="my-2 mr-2" onClick={handleShow}>
           Add user
-        </Button>
+        </Button>}
         <TypeSelector
           types={employeeTypes}
           selected={selectedEmployeeType}
@@ -67,7 +65,7 @@ const UserList = ({
         show={show}
         onHide={handleClose}
         user={user}
-        isEdit={isEdit}
+        notAdmin={notAdmin}
       />
       <CardColumns>
         {!usersFetching &&
@@ -78,7 +76,6 @@ const UserList = ({
               user={u}
               onEditClick={() => {
                 setUser(u);
-                setIsEdit(true);
                 handleShow();
               }}
               onDeleteClick={() => onDeleteClick(u.ID)}

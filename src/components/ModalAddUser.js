@@ -17,7 +17,7 @@ const AddUser = ({
   requestAddUser,
   show,
   siteLocations,
-  isEdit
+  notAdmin
 }) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -57,7 +57,7 @@ const AddUser = ({
   return (
     <Modal show={show} onShow={onShow} onHide={handleHide}>
       <Modal.Header closeButton>
-        <Modal.Title>Add user</Modal.Title>
+        <Modal.Title>Add/edit user</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -65,7 +65,7 @@ const AddUser = ({
           <FormGroup controlId="name">
             <FormLabel>Name</FormLabel>
             <FormControl
-              {...isEdit && "disabled"}
+              disabled={notAdmin}
               autoFocus
               type="text"
               value={name}
@@ -76,6 +76,7 @@ const AddUser = ({
           <FormGroup controlId="email">
             <FormLabel>Email</FormLabel>
             <FormControl
+              disabled={notAdmin}
               type="text"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -94,6 +95,7 @@ const AddUser = ({
           <FormGroup controlId="employeeType_id">
             <FormLabel>Employee Type</FormLabel>
             <TypeSelector
+              disabled={notAdmin}
               types={employeeTypes}
               selected={type}
               onClick={e => setType(e)}
@@ -102,6 +104,7 @@ const AddUser = ({
           <FormGroup controlId="siteLocation_id">
             <FormLabel>Site Location</FormLabel>
             <TypeSelector
+              disabled={notAdmin}
               types={siteLocations}
               selected={location}
               onClick={e => setLocation(e)}

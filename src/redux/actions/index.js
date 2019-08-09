@@ -221,7 +221,8 @@ export const requestFetchUsers = () => {
   return function(dispatch) {
     dispatch({ type: actionTypes.REQUEST_FETCH_USERS });
     return fetch(API + "/api/get_users", {
-      mode: "cors"
+      mode: "cors",
+      // credentials: "include"
     })
       .then(response => response.json(), error => console.log("Error: ", error))
       .then(response =>

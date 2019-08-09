@@ -1,29 +1,30 @@
 import React from "react";
-import { Dropdown } from "react-bootstrap";
+import { DropdownButton } from "react-bootstrap";
 import DropdownSelector from "./DropdownSelector";
 
-const TypeSelector = ({ types, selected, onClick, isFetching }) =>
+const TypeSelector = ({ types, selected, onClick, isFetching, disabled }) =>
   !isFetching && types ? (
-    <Dropdown className="my-2 mr-2">
+    <DropdownButton
+      disabled={disabled}
+      id="dropdown-basic-button"
+      className="my-2 mr-2"
+      title={selected === 0 ? "All" : types[selected].DATA}
+    >
+      {/* <Dropdown disabled={disabled} className="my-2 mr-2">
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-        {selected === 0 && "All"}
-        {Number.isInteger(selected) && selected > 0 ? types[selected].DATA : ""}
       </Dropdown.Toggle>
-      <Dropdown.Menu>
+      <Dropdown.Menu> */}
+      <DropdownSelector key="0" filter="All" onClick={onClick.bind(this, 0)} />
+      {Object.keys(types).map(i => (
         <DropdownSelector
-          key="0"
-          filter="All"
-          onClick={onClick.bind(this, 0)}
+          key={types[i].ID}
+          filter={types[i].DATA}
+          onClick={onClick.bind(this, types[i].ID)}
         />
-        {Object.keys(types).map(i => (
-          <DropdownSelector
-            key={types[i].ID}
-            filter={types[i].DATA}
-            onClick={onClick.bind(this, types[i].ID)}
-          />
-        ))}
-      </Dropdown.Menu>
-    </Dropdown>
+      ))}
+      {/* </Dropdown.Menu>
+    </Dropdown> */}
+    </DropdownButton>
   ) : (
     <div>loading...</div>
   );

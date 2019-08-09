@@ -4,7 +4,7 @@ import { actionTypes } from "../actions/actionTypes";
 const initialState = {
   isAuthenticated: false,
   isAuthenticating: false,
-  isAdmin: true
+  isAdmin: false
 };
 
 export const auth = (state = initialState, action) => {

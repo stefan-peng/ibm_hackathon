@@ -31,7 +31,8 @@ const mapStateToProps = state => ({
   selectedSiteLocation: state.visibilityFilter.siteLocationFilter,
   siteLocations: state.siteLocations.items,
   siteLocationsFetching: state.siteLocations.isFetching,
-  usersFetching: state.users.isFetching
+  usersFetching: state.users.isFetching,
+  notAdmin: !state.auth.isAdmin
 });
 
 const mapDispatchToProps = dispatch => ({

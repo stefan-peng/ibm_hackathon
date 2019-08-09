@@ -14,7 +14,7 @@ const Navigation = ({ isAuthenticated, isAdmin, onLogout, cookie }) => (
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto"></Nav>
       <Nav>
-        {isAdmin && isAuthenticated && (
+        {isAuthenticated && (
           <Fragment>
             <LinkContainer to="/allusers">
               <Nav.Link>All Users</Nav.Link>
